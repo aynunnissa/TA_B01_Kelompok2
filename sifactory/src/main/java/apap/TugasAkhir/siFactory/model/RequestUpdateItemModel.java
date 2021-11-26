@@ -9,12 +9,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.time.LocalTime;
-import java.util.Date;
-import java.util.List;
-
+import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter @Getter
@@ -41,7 +37,7 @@ public class RequestUpdateItemModel implements Serializable{
     @NotNull
     @Column(name = "tanggal_request", nullable = false)
     @DateTimeFormat(pattern = "yyyy MM dd")
-    private Date tanggalRequest;
+    private LocalDate tanggalRequest;
 
     @NotNull
     @Column(name = "id_cabang", nullable = false)
@@ -51,12 +47,12 @@ public class RequestUpdateItemModel implements Serializable{
     @Column(name = "executed", nullable = false)
     private boolean executed;
 
-    //Relasi dengan Produksi
-    @OneToOne(mappedBy = "request_update_item", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    //Relasi dengan ProduksiModel
+    @OneToOne(mappedBy = "requestUpdateItem", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private ProduksiModel produksiModel;
 
-    //Relasi dengan Produksi
-    @OneToOne(mappedBy = "request_update_item", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    //Relasi dengan DeliveryModel
+    @OneToOne(mappedBy = "requestUpdateItem", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private DeliveryModel deliveryModel;
     
 }
