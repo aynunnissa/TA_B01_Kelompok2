@@ -62,7 +62,7 @@ public class PegawaiModel implements Serializable {
     @JsonIgnore
     private RoleModel role;
 
-    //Relasi dengan Produksi
+    //Relasi dengan Pegawai
     @OneToMany(mappedBy = "pegawai", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<ProduksiModel> listProduksi;
 
