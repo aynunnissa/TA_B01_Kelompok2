@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>List Produksi</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar('Home')"></nav>
+<div class="container">
+    <div class="card m-4 p-4">
+        <div class="card-body">
+            <div class="justify-content-center">
+                <h4>List Produksi</h4>
+                <table class="table">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Id Produksi</th>
+                        <th scope="col">Id Item</th>
+                        <th scope="col">Id Kategori</th>
+                        <th scope="col">Tambahan Stok</th>
+                        <th scope="col">Tanggal Produksi</th>
+                        <th scope="col">Id Pegawai</th>
+                        <th scope="col">Id Request Update Item</th>
+                        <th scope="col">Id Mesin</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="produksi : ${listProduksi}">
+                        <td th:text="${produksi.idProduksi}" scope="col"></td>
+                        <td th:text="${produksi.idItem}" scope="col"></td>
+                        <td th:text="${produksi.idKategori}" scope="col"></td>
+                        <td th:text="${produksi.tambahanStok}" scope="col"></td>
+                        <td th:text="${produksi.tanggalProduksi}" scope="col"></td>
+                        <td th:text="${produksi.pegawai?.idPegawai}" scope="col"></td>
+                        <td th:text="${produksi.requestUpdateItem?.idRequestUpdateItem}" scope="col"></td>
+                        <td th:text="${produksi.mesin?.idMesin}" scope="col"></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <br>
+                <a class="btn btn-primary" href="/">Home</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

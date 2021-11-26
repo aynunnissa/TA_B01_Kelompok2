@@ -11,7 +11,7 @@
 
 | NPM | Nama Lengkap | Fitur yang akan diselesaikan  |
 | ----------| --- | ---------- | 
-| 1806191641 | Maulana Wildan Abdurrahman  | 1 4 |
+| 1806191641 | Maulana Wildan Abdurrahman  | 1 |
 | 1906399202 | Aynun Nissa Setiawan | 8 13 |
 | 1806191396 | Muhammad Glend Angga Dwitama | 5 |
 | 1906318514 | Rizky Pratama Nataprawira | 7 |
@@ -21,8 +21,8 @@
 
 | NPM | Nama Lengkap | Fitur yang akan diselesaikan  |
 | ----------| --- | ---------- | 
-| 1806191641 | Maulana Wildan Abdurrahman  | 15 |
-| 1906399202 | Aynun Nissa Setiawan | 9, 14 |
+| 1806191641 | Maulana Wildan Abdurrahman  | 4 15 |
+| 1906399202 | Aynun Nissa Setiawan | 9 14 |
 | 1806191396 | Muhammad Glend Angga Dwitama | 6 12 |
 | 1906318514 | Rizky Pratama Nataprawira | 10 11 |
 | 1906353750 | Aransandya Pangesthika Arrumy | 16 17 |

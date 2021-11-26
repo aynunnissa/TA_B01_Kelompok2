@@ -9,8 +9,14 @@ public class PageController {
     public String home(){
         return "home";
     }
+
     @RequestMapping("/login")
     public String login(){
         return "login";
     }
+
+
+//    @RequestMapping("/login")
+//    public String login(){ return "login"; }
+
 }
