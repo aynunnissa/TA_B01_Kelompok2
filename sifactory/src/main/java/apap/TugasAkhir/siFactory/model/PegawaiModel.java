@@ -63,10 +63,18 @@ public class PegawaiModel implements Serializable {
     private RoleModel role;
 
     //Relasi dengan Produksi
+
     @OneToMany(mappedBy = "pegawai", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<ProduksiModel> listProduksi;
 
     //Relasi dengan Delivery
     @OneToMany(mappedBy = "pegawai", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+
+    @OneToMany(mappedBy = "idProduksi", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<ProduksiModel> listProduksi;
+
+    //Relasi dengan Delivery
+    @OneToMany(mappedBy = "idDelivery", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+
     private List<DeliveryModel> listDelivery;
 }
