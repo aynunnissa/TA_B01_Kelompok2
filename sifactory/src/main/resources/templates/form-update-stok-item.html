@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>si-Factory</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    </head>    
+<body>
+<nav th:replace="fragments/fragment :: navbar('item')"></nav>
+<div class="container">
+    <div class="card m-4 p-4">
+        <div class="card-body">
+            <div class="justify-content-center">
+                <h2 style="text-align: center;">Update Stok Item</h2>
+                <br>
+                <form th:action="@{}" th:object="${}" method="POST">
+                  
+                    Jumlah Stok : <br>
+                    <input class="form-control" type="number" name="jumlahStok" required/>
+                    <br><br>
+
+                    Mesin : <br>
+                    <select name="mesin" class="form-control">
+                        <option th:text="'BUKU'" th:value="1" selected></option>
+                        <option th:text="'DAPUR'" th:value="2"></option>
+                        <option th:text="'MAKANAN & MINUMAN'" th:value="3"></option>
+                        <option th:text="'ELEKTRONIK'" th:value="4"></option>
+                        <option th:text="'FASHION'" th:value="5"></option>
+                        <option th:text="'KECANTIKAN & PERAWATAN DIRI'" th:value="6"></option>
+                        <option th:text="'FILM & MUSIK'" th:value="7"></option>
+                        <option th:text="'GAMING'" th:value="8"></option>
+                        <option th:text="'GADGET'" th:value="9"></option>
+                        <option th:text="'KESEHATAN'" th:value="10"></option>
+                        <option th:text="'RUMAH TANGGA'" th:value="11"></option>
+                        <option th:text="'FURNITURE'" th:value="12"></option>
+                        <option th:text="'ALAT & PERANGKAT KERAS'" th:value="13"></option>
+                        <option th:text="'WEDDING'" th:value="14"></option>
+                    </select>
+                    <br><br>
+
+                    <button class="btn btn-primary" type="submit" name="save">Submit</button>
+                    <a class="btn btn-primary" href="/">Back</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
