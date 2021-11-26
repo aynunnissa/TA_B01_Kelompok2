@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>List Delivery</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+    <nav th:replace="fragments/fragment :: navbar('Home')"></nav>
+    <div class="container">
+        <div class="card m-4 p-4">
+            <div class="card-body">
+                <div class="justify-content-center">
+                    <h4>List Delivery</h4>
+                    <table class="table">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Id Delivery</th>
+                            <th scope="col">Id Cabang</th>
+                            <th scope="col">Tanggal Dibuat</th>
+                            <th scope="col">Tanggal Dikirim</th>
+                            <th scope="col">Sent</th>
+                            <th scope="col">Id Kurir</th>
+                            <th scope="col">Id Request Update Item</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="delivery : ${listDelivery}">
+                            <td th:text="${delivery.idDelivery}" scope="col"></td>
+                            <td th:text="${delivery.idCabang}" scope="col"></td>
+                            <td th:text="${delivery.tanggalDibuat}" scope="col"></td>
+                            <td th:text="${delivery.tanggalDikirim}" scope="col"></td>
+                            <td th:text="${delivery.sent}" scope="col"></td>
+                            <td th:text="${delivery.pegawai.idPegawai}" scope="col"></td>
+                            <td th:text="${delivery.requestUpdateItem?.idRequestUpdateItem}" scope="col"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <br>
+                    <a class="btn btn-primary" href="/">Home</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
