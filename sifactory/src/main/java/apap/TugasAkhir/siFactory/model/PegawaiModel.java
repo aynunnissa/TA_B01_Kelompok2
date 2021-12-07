@@ -9,12 +9,14 @@ import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @AllArgsConstructor
@@ -34,7 +36,8 @@ public class PegawaiModel implements Serializable {
 
     @NotNull
     @Column(name = "tanggal_lahir", nullable = false)
-    private LocalDateTime tanggalLahir;
+    @DateTimeFormat(pattern ="yyyy-MM-dd")
+    private Date tanggalLahir;
 
     @NotNull
     @Size(max = 50)
