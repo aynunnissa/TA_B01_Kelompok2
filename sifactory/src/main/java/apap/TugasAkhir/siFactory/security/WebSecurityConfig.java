@@ -39,6 +39,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //    public BCryptPasswordEncoder encoder(){
 //        return new BCryptPasswordEncoder();
 //    }
+
 //    @Autowired
 //    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception{
 //        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
@@ -48,12 +49,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //                .roles("Admin");
 //    }
 
+
 //    @Autowired
 //    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception{
 //        auth.inMemoryAuthentication()
 //                .passwordEncoder(encoder())
 //                .withUser("useradmin").password(encoder().encode("Admin!123")).roles("Admin");
 //    }
+
 
 
     @Autowired
@@ -64,5 +67,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         auth.userDetailsService(userDetailsService).passwordEncoder(encoder);
     }
+
+//    @Autowired
+//    private UserDetailsService userDetailsService;
+
+//    @Autowired
+//    public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
+//        auth.userDetailsService(userDetailsService).passwordEncoder(encoder());
+//    }
+
 }
 
