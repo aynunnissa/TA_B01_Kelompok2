@@ -38,43 +38,30 @@ public class PegawaiController {
         model.addAttribute("listRole", listRole);
         return "form-add-pegawai";
     }
+
     @PostMapping(value = "/add", params = {"save"})
     public String addPegawaiSubmit(@ModelAttribute PegawaiModel pegawai, Model model){
-        System.out.println(pegawai.getUsername());
-        String nama = SecurityContextHolder.getContext().getAuthentication().getName();
-        pegawai.setCounter(0);
-        pegawaiService.addCounterPegawai(nama);
-        pegawaiService.addPegawai(pegawai);
-        model.addAttribute("pegawai", pegawai);
+        Boolean avail = pegawaiService.checkUsername(pegawai.getUsername());
+        if(avail){
+            String nama = SecurityContextHolder.getContext().getAuthentication().getName();
+            pegawai.setCounter(0);
+            pegawaiService.addCounterPegawai(nama);
+            pegawaiService.addPegawai(pegawai);
+            model.addAttribute("pegawai", pegawai);
+        }
+        else{
+            model.addAttribute("message", "Username tidak tersedia. Harap gunakan username lain");
+            return "form-add-pegawai";
+        }
+//        model.addAttribute("pegawai", pegawai);
         return "redirect:/";
     }
-
-    @GetMapping("/ubah-password")
-    public String ubahPasswordFormPage(Model model){
-        return "form-ubah-password";
-    }
-
-    @PostMapping("/ubah-password")
-    public String ubahPasswordSubmit(@ModelAttribute PegawaiModel pegawaiModel, String passwordBaru, String konfPassword, Model model){
-        PegawaiModel pegawai = pegawaiService.getPegawaiByUsername(pegawaiModel.getUsername());
-
-        if (pegawaiService.isMatch(pegawaiModel.getPassword(), pegawai.getPassword())){
-            if (passwordBaru.equals(konfPassword)){
-                pegawaiService.setPassword(pegawai, passwordBaru);
-                pegawaiService.addPegawai(pegawai);
-            }else {
-                model.addAttribute("message", "Password tidak sama");
-            }
-        }else {
-            model.addAttribute("message", "Password salah");
-        }
-        return "home";
-    }
-    @GetMapping("/viewall")
+    
+    @GetMapping("/view-all")
     public String listPegawai(Model model){
         List<PegawaiModel> listPegawai = pegawaiService.getListPegawai();
         model.addAttribute("listPegawai", listPegawai);
-        return "viewall-user";
+                return "viewall-pegawai";
     }
 }
 

@@ -19,6 +19,12 @@
             <div th:if="${role == '[ADMIN]'}" class="my-3 d-flex justify-content-center">
                 <a th:href="@{/pegawai/add}" class="mx-2 btn btn-outline-primary">Tambah Pegawai</a>
             </div>
+            <div th:if="${role == '[ADMIN]'}" class="my-3 d-flex justify-content-center">
+                <a th:href="@{/pegawai/view-all}" class="mx-2 btn btn-outline-primary">Lihat Daftar Pegawai</a>
+            </div>
+            <div th:if="${role == '[FACTORY_MANAGER]'}" class="my-3 d-flex justify-content-center">
+                <a th:href="@{/pegawai/view-all}" class="mx-2 btn btn-outline-primary">Lihat Daftar Pegawai</a>
+            </div>
 <!--            <div class="my-3 d-flex justify-content-center">-->
 <!--                <a th:href="@{/pegawai/add}" class="mx-2 btn btn-outline-primary">Tambah Pegawai</a>-->
 <!--            </div>-->

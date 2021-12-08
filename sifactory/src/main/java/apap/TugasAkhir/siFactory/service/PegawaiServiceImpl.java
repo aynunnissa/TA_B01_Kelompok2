@@ -40,11 +40,11 @@ public class PegawaiServiceImpl implements PegawaiService{
         return pegawaiDb.findAll();
     }
 
-    @Override
-    public boolean isMatch(String passwordBaru, String passwordLama) {
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        return passwordEncoder.matches(passwordBaru, passwordLama);
-    }
+//    @Override
+//    public boolean isMatch(String passwordBaru, String passwordLama) {
+//        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+//        return passwordEncoder.matches(passwordBaru, passwordLama);
+//    }
 
     @Override
     public void setPassword(PegawaiModel pegawai, String passwordBaru) {
@@ -57,5 +57,18 @@ public class PegawaiServiceImpl implements PegawaiService{
         Integer prevCounter = pegawaiInput.getCounter();
         Integer currCounter = prevCounter + 1;
         pegawaiInput.setCounter(currCounter);
+    }
+
+    @Override
+    public boolean checkUsername(String username) {
+        boolean avail;
+        PegawaiModel usernameCheck = pegawaiDb.findByUsername(username);
+        if(usernameCheck == null){
+            avail = true;
+        }
+        else{
+            avail = false;
+        }
+        return avail;
     }
 }

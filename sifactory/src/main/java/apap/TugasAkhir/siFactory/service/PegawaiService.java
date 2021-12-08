@@ -9,7 +9,8 @@ public interface PegawaiService {
     String encrypt(String password);
     PegawaiModel getPegawaiByUsername(String username);
     List<PegawaiModel> getListPegawai();
-    boolean isMatch(String passwordBaru, String passwordLama);
+//    boolean isMatch(String passwordBaru, String passwordLama);
     void setPassword(PegawaiModel pegawai, String passwordBaru);
     void addCounterPegawai(String nama);
+    boolean checkUsername(String username);
 }

@@ -25,4 +25,5 @@ public class PageController {
         model.addAttribute("role",role);
         return "home";
     }
+
 }
