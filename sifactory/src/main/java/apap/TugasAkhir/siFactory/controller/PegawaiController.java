@@ -56,7 +56,7 @@ public class PegawaiController {
 //        model.addAttribute("pegawai", pegawai);
         return "redirect:/";
     }
-    
+
     @GetMapping("/view-all")
     public String listPegawai(Model model){
         List<PegawaiModel> listPegawai = pegawaiService.getListPegawai();

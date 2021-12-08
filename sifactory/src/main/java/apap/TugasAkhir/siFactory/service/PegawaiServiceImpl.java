@@ -46,10 +46,10 @@ public class PegawaiServiceImpl implements PegawaiService{
 //        return passwordEncoder.matches(passwordBaru, passwordLama);
 //    }
 
-    @Override
-    public void setPassword(PegawaiModel pegawai, String passwordBaru) {
-        pegawai.setPassword(passwordBaru);
-    }
+//    @Override
+//    public void setPassword(PegawaiModel pegawai, String passwordBaru) {
+//        pegawai.setPassword(passwordBaru);
+//    }
 
     @Override
     public void addCounterPegawai(String nama) {
