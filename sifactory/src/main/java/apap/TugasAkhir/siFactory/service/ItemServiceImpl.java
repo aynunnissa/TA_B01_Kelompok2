@@ -68,7 +68,7 @@ public class ItemServiceImpl implements ItemService{
     }
 
     @Override
-    public String updatestok(String uuid, Integer jumlahstok, long idMesin, PegawaiModel pegawai, Long ruiId){
+    public String updatestok(String uuid, Integer jumlahstok, long idMesin, PegawaiModel pegawai, long ruiId){
         int counterPegawaiAkhir = pegawai.getCounter() + 1;
         MesinModel mesin = mesinDb.getById(idMesin);
         long kapasitasMesinAkhir = mesin.getKapasitas() - 1;
@@ -79,12 +79,11 @@ public class ItemServiceImpl implements ItemService{
         data.put("stok", Integer.toString(totalStok));
         Mono<ItemDetail> item = this.webClient.put().uri("/api/item/" + uuid).syncBody(data).retrieve().bodyToMono(ItemDetail.class);
         String status = item.block().getStatus();
-        System.out.println(status);
         if(status.equals("200")){
             ProduksiModel produksi = new ProduksiModel();
             produksi.setRequestUpdateItem(null);
             if(ruiId > 0){
-                int ruiId1 = (int) (long) ruiId;
+                int ruiId1 = (int) ruiId;
                 Optional<RequestUpdateItemModel> rui = requestUpdateItemDb.findById(ruiId1);
                 RequestUpdateItemModel ruiModel = null;
                 if(rui.isPresent()){
@@ -109,7 +108,7 @@ public class ItemServiceImpl implements ItemService{
 
     @Override
     public RequestUpdateItemModel getRequestUpdateItem (long ruiId){
-        int ruiId1 = (int) (long) ruiId;
+        int ruiId1 = (int) ruiId;
         RequestUpdateItemModel rui = requestUpdateItemDb.getById(ruiId1);
         return rui;
     }
