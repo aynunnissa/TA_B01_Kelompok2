@@ -89,9 +89,9 @@ public class ItemController {
 
         List<MesinModel> listMesin = mesinService.getListMesin();
         List<MesinModel> listMesinFiltered = new ArrayList<MesinModel>();
-        Long idKategori = rui.getIdKategori();
+        int idKategori = rui.getIdKategori();
         for(MesinModel mesin:listMesin){
-            if(((long) mesin.getIdKategori()) == idKategori){
+            if(mesin.getIdKategori() == ((long) idKategori)){
                 listMesinFiltered.add(mesin);
             }
         }

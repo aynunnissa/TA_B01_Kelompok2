@@ -17,7 +17,7 @@ import apap.TugasAkhir.siFactory.repository.MesinDb;
 import apap.TugasAkhir.siFactory.repository.ProduksiDb;
 import apap.TugasAkhir.siFactory.repository.RequestUpdateItemDb;
 import apap.TugasAkhir.siFactory.rest.ItemDetail;
-import apap.TugasAkhir.siFactory.rest.setting;
+import apap.TugasAkhir.siFactory.rest.Setting;
 import reactor.core.publisher.Mono;
 import apap.TugasAkhir.siFactory.model.MesinModel;
 import apap.TugasAkhir.siFactory.model.PegawaiModel;
@@ -38,7 +38,7 @@ public class ItemServiceImpl implements ItemService{
     private final WebClient webClient;
 
     public ItemServiceImpl(WebClient.Builder webClientBuilder){
-        this.webClient = webClientBuilder.baseUrl(setting.siItemUrl).build();
+        this.webClient = webClientBuilder.baseUrl(Setting.siItemUrl).build();
     }
 
     @Override
@@ -84,7 +84,8 @@ public class ItemServiceImpl implements ItemService{
             ProduksiModel produksi = new ProduksiModel();
             produksi.setRequestUpdateItem(null);
             if(ruiId > 0){
-                Optional<RequestUpdateItemModel> rui = requestUpdateItemDb.findById(ruiId);
+                int ruiId1 = (int) (long) ruiId;
+                Optional<RequestUpdateItemModel> rui = requestUpdateItemDb.findById(ruiId1);
                 RequestUpdateItemModel ruiModel = null;
                 if(rui.isPresent()){
                     ruiModel = rui.get();
@@ -107,8 +108,9 @@ public class ItemServiceImpl implements ItemService{
     }
 
     @Override
-    public RequestUpdateItemModel getRequestUpdateItem (Long ruiId){
-        RequestUpdateItemModel rui = requestUpdateItemDb.getById(ruiId);
+    public RequestUpdateItemModel getRequestUpdateItem (long ruiId){
+        int ruiId1 = (int) (long) ruiId;
+        RequestUpdateItemModel rui = requestUpdateItemDb.getById(ruiId1);
         return rui;
     }
 

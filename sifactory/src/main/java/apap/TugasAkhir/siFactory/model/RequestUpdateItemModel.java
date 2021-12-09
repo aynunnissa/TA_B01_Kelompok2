@@ -11,16 +11,17 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
+
 @AllArgsConstructor
 @NoArgsConstructor
-@Setter @Getter
+// @Setter @Getter
 @Entity
 @Table(name = "request_update_item")
-public class RequestUpdateItemModel implements Serializable{
-    
+public class RequestUpdateItemModel implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idRequestUpdateItem;
+    private int idRequestUpdateItem;
 
     @NotNull
     @Column(name = "id_item", nullable = false)
@@ -28,11 +29,11 @@ public class RequestUpdateItemModel implements Serializable{
 
     @NotNull
     @Column(name = "id_kategori", nullable = false)
-    private Long idKategori;
+    private int idKategori;
 
     @NotNull
     @Column(name = "tambahan_stok", nullable = false)
-    private Long tambahanStok;
+    private int tambahanStok;
 
     @NotNull
     @Column(name = "tanggal_request", nullable = false)
@@ -41,18 +42,90 @@ public class RequestUpdateItemModel implements Serializable{
 
     @NotNull
     @Column(name = "id_cabang", nullable = false)
-    private Long idCabang;
+    private int idCabang;
 
     @NotNull
-    @Column(name = "executed", nullable = false)
+    @Column(name = "executed", nullable = false, columnDefinition = "boolean default false")
     private boolean executed;
 
-    //Relasi dengan ProduksiModel
+    public int getIdRequestUpdateItem() {
+        return idRequestUpdateItem;
+    }
+
+    public void setIdRequestUpdateItem(int idRequestUpdateItem) {
+        this.idRequestUpdateItem = idRequestUpdateItem;
+    }
+
+    // Relasi dengan ProduksiModel
     @OneToOne(mappedBy = "requestUpdateItem", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private ProduksiModel produksiModel;
 
-    //Relasi dengan DeliveryModel
+    public String getIdItem() {
+        return idItem;
+    }
+
+    public void setIdItem(String idItem) {
+        this.idItem = idItem;
+    }
+
+    public int getIdKategori() {
+        return idKategori;
+    }
+
+    public void setIdKategori(int idKategori) {
+        this.idKategori = idKategori;
+    }
+
+    public int getTambahanStok() {
+        return tambahanStok;
+    }
+
+    public void setTambahanStok(int tambahanStok) {
+        this.tambahanStok = tambahanStok;
+    }
+
+    public LocalDate getTanggalRequest() {
+        return tanggalRequest;
+    }
+
+    public void setTanggalRequest(LocalDate tanggalRequest) {
+        this.tanggalRequest = tanggalRequest;
+    }
+
+    public int getIdCabang() {
+        return idCabang;
+    }
+
+    public void setIdCabang(int idCabang) {
+        this.idCabang = idCabang;
+    }
+
+    public boolean isExecuted() {
+        return executed;
+    }
+
+    public void setExecuted(boolean executed) {
+        this.executed = executed;
+    }
+
+    public ProduksiModel getProduksiModel() {
+        return produksiModel;
+    }
+
+    public void setProduksiModel(ProduksiModel produksiModel) {
+        this.produksiModel = produksiModel;
+    }
+
+    public DeliveryModel getDeliveryModel() {
+        return deliveryModel;
+    }
+
+    public void setDeliveryModel(DeliveryModel deliveryModel) {
+        this.deliveryModel = deliveryModel;
+    }
+
+    // Relasi dengan DeliveryModel
     @OneToOne(mappedBy = "requestUpdateItem", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private DeliveryModel deliveryModel;
-    
+
 }

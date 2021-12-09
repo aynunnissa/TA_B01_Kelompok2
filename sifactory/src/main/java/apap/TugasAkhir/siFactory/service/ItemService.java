@@ -12,6 +12,6 @@ public interface ItemService {
     String getKategoryItem (String uuid);
     Integer getIdKategori(String kategori);
     String updatestok(String uuid, Integer jumlahstok, long idMesin, PegawaiModel pegawai, Long ruiId);
-    RequestUpdateItemModel getRequestUpdateItem (Long rui);
+    RequestUpdateItemModel getRequestUpdateItem (long rui);
     List<RequestUpdateItemModel> getListRequestUpdateItem ();
 }

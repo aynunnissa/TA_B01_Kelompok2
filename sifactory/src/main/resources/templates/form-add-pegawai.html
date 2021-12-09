@@ -14,6 +14,7 @@
                 <h2>Tambah Pegawai</h2>
                 <br>
                 <form th:action="@{/pegawai/add}" th:object="${pegawai}" method="POST">
+                    <p th:text="${message}" class="alert alert-info" role="alert"></p>
                     <label>Username</label>
 <!--                    <p th:text="*{username}"></p>-->
                     <input type="text" name="username" class="form-control" />
