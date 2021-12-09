@@ -4,7 +4,7 @@ import apap.TugasAkhir.siFactory.model.MesinModel;
 import apap.TugasAkhir.siFactory.repository.MesinDb;
 import org.springframework.stereotype.Service;
 
-import apap.TugasAkhir.siFactory.rest.setting;
+import apap.TugasAkhir.siFactory.rest.Setting;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
