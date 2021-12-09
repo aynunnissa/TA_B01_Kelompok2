@@ -1,24 +1,30 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://thymeleaf.org">
+
 <head>
+    <style>
+        .disabled{
+    background-color: rgb(209, 206, 206);
+    cursor: not-allowed;
+    }
+    </style>
     <meta charset="UTF-8">
     <title>si-Factory</title>
     <object th:include="fragments/fragment :: css" th:remove="tag"></object>
     <object th:include="fragments/fragment :: js" th:remove="tag"></object>
-    </head>    
+</head>    
 <body>
 <nav th:replace="fragments/fragment :: navbar('item')"></nav>
 <div class="container">
     <div class="card m-4 p-4">
         <div class="card-body">
             <div class="justify-content-center">
-                <!-- <h1 th:text="{$coba}"></h1> -->
                 <h2 style="text-align: center;">Update Stok Item</h2>
                 <br>
-                <form th:action="@{/item/update-stok/} + ${uuid}"  method="POST" onsubmit="return confirm('Apakah anda yakin untuk update stok item?');">
+                <form th:action="@{/item/update-stok/rui/} + ${ruiId}"  method="POST" onsubmit="return confirm('Apakah anda yakin untuk update stok item?');">
                     <input type="hidden" name="userNamePegawai" th:value="${#httpServletRequest.userPrincipal.name}">
                     Jumlah Stok : <br>
-                    <input class="form-control" type="number" name="jumlahStok" required/>
+                    <input class="disabled" type="number" name="jumlahStok" th:value="${stokTambahan}" readonly="true"/>
                     <br><br>
 
                     Mesin : <br>
@@ -30,13 +36,14 @@
                     </select>
                     <br><br>
 
-                    <button class="btn btn-primary" type="submit" name="save">Submit</button>
+                    <button class="btn btn-primary" type="submit" name="save" onclick="myFunction()">Submit</button>
                     <a class="btn btn-primary" href="/">Back</a>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
 
 </body>
 </html>

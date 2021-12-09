@@ -20,9 +20,9 @@
                             <th scope="col">Id Cabang</th>
                             <th scope="col">Tanggal Dibuat</th>
                             <th scope="col">Tanggal Dikirim</th>
-                            <th scope="col">Sent</th>
                             <th scope="col">Id Kurir</th>
                             <th scope="col">Id Request Update Item</th>
+                            <th scope="col">Sent</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -31,9 +31,15 @@
                             <td th:text="${delivery.idCabang}" scope="col"></td>
                             <td th:text="${delivery.tanggalDibuat}" scope="col"></td>
                             <td th:text="${delivery.tanggalDikirim}" scope="col"></td>
-                            <td th:text="${delivery.sent}" scope="col"></td>
                             <td th:text="${delivery.pegawai.idPegawai}" scope="col"></td>
                             <td th:text="${delivery.requestUpdateItem?.idRequestUpdateItem}" scope="col"></td>
+                            <td th:if="${delivery.sent} == true" scope="col">Terkirim</td>
+                            <td th:if="${delivery.sent} == false">
+                                <a class="btn btn-primary mx-2"
+                                   th:href="@{/delivery/send/} + ${delivery.idDelivery}">
+                                    Kirim
+                                </a>
+                            </td>
                         </tr>
                         </tbody>
                     </table>
