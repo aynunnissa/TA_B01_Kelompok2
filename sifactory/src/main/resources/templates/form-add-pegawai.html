@@ -13,7 +13,11 @@
             <div class="justify-content-center">
                 <h2>Tambah Pegawai</h2>
                 <br>
+<<<<<<< HEAD
+                <form th:action="@{/pegawai/add}" th:object="${pegawai}" method="POST" onSubmit="return confirm('Apakah Anda yakin untuk menambahkan pegawai?')">
+=======
                 <form th:action="@{/pegawai/add}" th:object="${pegawai}" method="POST">
+>>>>>>> 98df31e363ff563130cea532697658a5ccd43c5e
                     <p th:text="${message}" class="alert alert-info" role="alert"></p>
                     <label>Username</label>
 <!--                    <p th:text="*{username}"></p>-->

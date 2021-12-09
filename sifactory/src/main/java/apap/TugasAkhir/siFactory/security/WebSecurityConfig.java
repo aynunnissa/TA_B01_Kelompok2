@@ -25,6 +25,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/css/**").permitAll()
                 .antMatchers("/js/**").permitAll()
+                .antMatchers("/api/**").permitAll()
+                .antMatchers("/pegawai/add").hasAuthority("ADMIN")
                 .antMatchers("/api-docs").permitAll()
                 .antMatchers("/api/**").permitAll()
                 .antMatchers("/v3/api-docs/**").permitAll()
@@ -46,32 +48,31 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/api/v1/requestUpdateItem/create");
+        web.ignoring().antMatchers("/api/v1/**");
         web.ignoring().antMatchers("/api-docs");
     }
 
-    // @Bean
-    // public BCryptPasswordEncoder encoder(){
-    // return new BCryptPasswordEncoder();
-    // }
+//    @Bean
+//    public BCryptPasswordEncoder encoder(){
+//        return new BCryptPasswordEncoder();
+//    }
 
-    // @Autowired
-    // public void configureGlobal(AuthenticationManagerBuilder auth) throws
-    // Exception {
-    // BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-    // auth.inMemoryAuthentication()
-    // .passwordEncoder(encoder)
-    // .withUser("useradmin").password(encoder.encode("Admin123"))
-    // .roles("ADMIN");
-    // }
+//    @Autowired
+//    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception{
+//        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+//        auth.inMemoryAuthentication()
+//                .passwordEncoder(encoder)
+//                .withUser("useradmin").password(encoder.encode("Admin123"))
+//                .roles("Admin");
+//    }
 
-    // @Autowired
-    // public void configureGlobal(AuthenticationManagerBuilder auth) throws
-    // Exception{
-    // auth.inMemoryAuthentication()
-    // .passwordEncoder(encoder())
-    // .withUser("useradmin").password(encoder().encode("Admin!123")).roles("Admin");
-    // }
+
+//    @Autowired
+//    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception{
+//        auth.inMemoryAuthentication()
+//                .passwordEncoder(encoder())
+//                .withUser("useradmin").password(encoder().encode("Admin!123")).roles("Admin");
+//    }
 
     @Autowired
     private UserDetailsService userDetailsService;
@@ -81,6 +82,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         auth.userDetailsService(userDetailsService).passwordEncoder(encoder);
     }
+
 
     // @Autowired
     // private UserDetailsService userDetailsService;
