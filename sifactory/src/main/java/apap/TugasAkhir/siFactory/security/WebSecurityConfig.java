@@ -74,14 +74,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     // .withUser("useradmin").password(encoder().encode("Admin!123")).roles("Admin");
     // }
 
-    @Autowired
-    private UserDetailsService userDetailsService;
+    // @Autowired
+    // private UserDetailsService userDetailsService;
 
-    @Autowired
-    public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        auth.userDetailsService(userDetailsService).passwordEncoder(encoder);
-    }
+    // @Autowired
+    // public void configAuthentication(AuthenticationManagerBuilder auth) throws
+    // Exception {
+    // BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+    // auth.userDetailsService(userDetailsService).passwordEncoder(encoder);
+    // }
 
     // @Autowired
     // private UserDetailsService userDetailsService;
