@@ -75,12 +75,12 @@ public class DeliveryController {
         String response = deliveryService.getListIdCabang().share().block();
         int idCabang = deliveryService.getIdCabang(idDelivery);
         JSONObject jsonObject = new JSONObject(response);
-        JSONArray listIdCabang = jsonObject.getJSONArray("listCabang");
+        JSONArray listIdCabang = jsonObject.getJSONArray("result");
 
         model.addAttribute("idDelivery", idDelivery);
 
         for (int i = 0; i < listIdCabang.length(); i++) {
-            if (listIdCabang.getJSONObject(i).get("id_cabang").equals(idCabang)) {
+            if (listIdCabang.getJSONObject(i).get("id").equals(idCabang)) {
                 model.addAttribute("success", true);
                 model.addAttribute("alamat", listIdCabang.getJSONObject(i).get("alamat"));
                 DeliveryModel delivery = deliveryService.getDeliveryByIdDelivery(idDelivery);

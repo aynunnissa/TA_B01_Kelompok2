@@ -37,7 +37,7 @@ public class DeliveryServiceImpl implements DeliveryService {
 
     @Override
     public Mono<String> getListIdCabang() {
-        Mono<String> stringMono = webClient.get().uri("/rest/retail/getListIdCabang")
+        Mono<String> stringMono = webClient.get().uri("/api/cabang/listAlamat")
                 .retrieve().bodyToMono(String.class);
         return stringMono;
     }
@@ -55,8 +55,10 @@ public class DeliveryServiceImpl implements DeliveryService {
     @Override
     public DeliveryModel getDeliveryByIdDelivery(int idDelivery) {
         Optional<DeliveryModel> delivery = deliveryDb.findDeliveryModelByIdDelivery(idDelivery);
-        if (delivery.isPresent()) return delivery.get();
-        else return null;
+        if (delivery.isPresent())
+            return delivery.get();
+        else
+            return null;
     }
 
     @Override
