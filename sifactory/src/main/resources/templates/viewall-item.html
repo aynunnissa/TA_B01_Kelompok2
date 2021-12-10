@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title>List Item</title>
+  <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+  <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar('Home')"></nav>
+
+  <div class="container mt-3 ">
+    <br>
+    <h3 class="text-left mb-3">Daftar Item</h3>
+    <br>
+    <table class="table table-striped ">
+      <thead>
+      <tr class="bg-warning">
+        <th>No</th>
+        <th>UUID</th>
+        <th>Nama</th>
+        <th>Harga</th>
+        <th>Stok</th>
+        <th>Kategori</th>
+        <th>Aksi</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="item, iterationStatus : ${itemDetail}">
+        <td th:text="${iterationStatus.count}"></td>
+        <td>
+          <a th:text="${item.uuid}"></a>
+        </td>
+        <td th:text="${item.nama}"></td>
+        <td th:text="${item.harga}"></td>
+        <td th:text="${item.stok}"></td>
+        <td th:text="${item.kategori}"></td>
+        <td>
+          <a class="btn btn-primary btn-sm" th:href="@{/item/item-detail/} + ${item.uuid}">Detail</a>
+          <a class="btn btn-primary btn-info" th:href="@{/item/update-stok/} + ${item.uuid}">Ubah</a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+</body>
+</html>
