@@ -16,7 +16,10 @@ import apap.TugasAkhir.siFactory.model.PegawaiModel;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.transaction.Transactional;
+
 @Service
+@Transactional
 public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     private PegawaiDb pegawaiDb;
