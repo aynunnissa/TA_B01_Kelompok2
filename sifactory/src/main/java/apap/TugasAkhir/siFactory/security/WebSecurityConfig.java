@@ -35,19 +35,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     }
 
-//    @Bean
-//    public BCryptPasswordEncoder encoder(){
-//        return new BCryptPasswordEncoder();
-//    }
+    @Bean
+    public BCryptPasswordEncoder encoder(){
+        return new BCryptPasswordEncoder();
+    }
 
-//    @Autowired
-//    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception{
-//        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-//        auth.inMemoryAuthentication()
-//                .passwordEncoder(encoder)
-//                .withUser("useradmin").password(encoder.encode("Admin123"))
-//                .roles("Admin");
-//    }
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception{
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        auth.inMemoryAuthentication()
+                .passwordEncoder(encoder)
+                .withUser("admin").password(encoder.encode("admin123"))
+                .roles("Admin");
+    }
 
 
 //    @Autowired
