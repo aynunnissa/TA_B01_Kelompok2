@@ -58,14 +58,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     // return new BCryptPasswordEncoder();
     // }
 
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        auth.inMemoryAuthentication()
-                .passwordEncoder(encoder)
-                .withUser("useradmin").password(encoder.encode("Admin123"))
-                .roles("ADMIN");
-    }
+//    @Autowired
+//    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+//        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+//        auth.inMemoryAuthentication()
+//                .passwordEncoder(encoder)
+//                .withUser("useradmin").password(encoder.encode("Admin123"))
+//                .roles("ADMIN");
+//    }
 
 
     // @Autowired
