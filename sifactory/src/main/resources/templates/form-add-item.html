@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <title>SI-FACTORY</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
+          rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
+          crossorigin="anonymous">
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar('Home')"></nav>
+
+<div class="container">
+    <div class="card m-4 p-4">
+        <div class="card-body">
+            <div class="justify-content-center">
+                <h2>Tambah Item Baru</h2>
+                <br>
+                <form th:action="@{/item/add" th:object="${item}" method="POST">
+                    Nama Item : <br>
+                    <input class="form-control" type="text" name="namaItem"/>
+                    <br><br>
+
+                    Harga Item: <br>
+                    <input class="form-control" type="text" name="hargaItem"/>
+                    <br><br>
+
+                    Stok Item : <br>
+                    <input class="form-control" type="text" name="stokItem"/>
+                    <br><br>
+
+                    //Untuk Kategori Item
+<!--                    <table class="table">-->
+<!--                        <thead>-->
+<!--                        <th>Kategori Item</th>-->
+<!--                        </thead>-->
+<!--                        <tbody>-->
+<!--                        <tr th:each="destinasi, iterationStatus : *{listDestinasi}">-->
+<!--                            <td>-->
+<!--                                <select name="noDestinasi" th:field="*{listDestinasi[__${iterationStatus.index}__].noDestinasi}"-->
+<!--                                        class="form-control">-->
+<!--                                    <div th:each="destinasiEx, iterationStatus2 : ${listDestinasiExisting}">-->
+<!--                                        <option th:value="${destinasiEx.noDestinasi}" th:text="${destinasiEx.negaraDestinasi}"></option>-->
+<!--                                    </div>-->
+<!--                                </select>-->
+<!--                            </td>-->
+<!--                        </tr>-->
+<!--                        </tbody>-->
+<!--                    </table>-->
+                    <button class="btn btn-primary" type="submit">Submit</button>
+                    <a class="btn btn-primary" href="/">Home</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

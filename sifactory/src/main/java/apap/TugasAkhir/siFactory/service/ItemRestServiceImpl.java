@@ -3,7 +3,7 @@ package apap.TugasAkhir.siFactory.service;
 import apap.TugasAkhir.siFactory.model.ItemModel;
 import apap.TugasAkhir.siFactory.repository.ItemDb;
 import apap.TugasAkhir.siFactory.rest.BaseResponse;
-import apap.TugasAkhir.siFactory.rest.setting;
+import apap.TugasAkhir.siFactory.rest.Setting;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -18,7 +18,7 @@ public class ItemRestServiceImpl implements ItemRestService{
     private final WebClient webClient;
 
     public ItemRestServiceImpl(WebClient.Builder webClientBuilder){
-        this.webClient = webClientBuilder.baseUrl(setting.siItemUrl).build();
+        this.webClient = webClientBuilder.baseUrl(Setting.siItemUrl).build();
     }
 
     @Override

@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 import apap.TugasAkhir.siFactory.model.RequestUpdateItemModel;
 
 @Repository
-public interface RequestUpdateItemDb extends JpaRepository<RequestUpdateItemModel, Long> {
+public interface RequestUpdateItemDb extends JpaRepository<RequestUpdateItemModel, Integer> {
 }

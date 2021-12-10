@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>si-Factory</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    </head>    
+<body>
+<nav th:replace="fragments/fragment :: navbar('item')"></nav>
+<div class="container">
+        <div class="card-body">
+            <h2>Request Update Item</h2>
+            <div class="justify-content-center">
+                    <div th:if="*{listRUI.size() != 0}">
+                    <table class="table" style="text-align: center;">
+                        <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Id</th>
+                            <th>Id Item</th>
+                            <th>Kategori</th>
+                            <th>Jumlah Stok</th>
+                            <th>Tanggal request</th>
+                            <th>id Cabang</th>
+                            <th>Executed</th>
+                            <span th:switch="${role}">
+                                <th th:case="STAFF_GUDANG">
+                                    Update
+                                </th>
+                                <th th:case="STAFF_OPERASIONAL">
+                                    Buat Delivery
+                                </th>
+                            </span>
+                        </tr>    
+                        </thead>
+                        <tbody>
+
+                        <tr th:each="rui, iterationStatus : ${listRUI}"
+                            th:style="${iterationStatus.even} ? 'font-weight:bold;'">
+                            <td th:text="${iterationStatus.count}"></td>
+                            <td th:text="${rui.idRequestUpdateItem}"></td>
+                            <td th:text="${rui.idItem}"></td>
+                            <td th:switch="${rui.idKategori}">
+                                <p th:case="1">BUKU</p>
+                                <p th:case="2">DAPUR</p> 
+                                <p th:case="3">MAKANAN & MINUMAN</p> 
+                                <p th:case="4">ELEKTRONIK</p> 
+                                <p th:case="5">FASHION</p>
+                                <p th:case="6">KECANTIKAN & PERAWATAN DIRI</p> 
+                                <p th:case="7">FILM & MUSIK</p> 
+                                <p th:case="8">GAMING</p> 
+                                <p th:case="9">GADGET</p> 
+                                <p th:case="10">KESEHATAN</p> 
+                                <p th:case="11">RUMAH TANGGA</p>
+                                <p th:case="12">FURNITURE</p> 
+                                <p th:case="13">ALAT & PERANGKAT KERAS</p> 
+                                <p th:case="14">WEDDING</p> 
+                            </td>
+                            <td th:text="${rui.tambahanStok}"></td>
+                            <td th:text="${rui.tanggalRequest}"></td>
+                            <td th:text="${rui.idCabang}"></td>
+                            <td th:switch="${rui.executed}">
+                                <p th:case="true">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-square-fill" viewBox="0 0 16 16">
+                                        <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm10.03 4.97a.75.75 0 0 1 .011 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.75.75 0 0 1 1.08-.022z"/>
+                                      </svg>
+                                </p>
+                                <p th:case="false">-</p>
+                            </td>
+                            <td th:switch="${role}">
+                                <span th:case="STAFF_GUDANG">
+                                    <span th:if="${rui.executed == true}">
+                                        -
+                                    </span>
+                                    <span th:unless="${rui.executed == true}">
+                                        <a class="btn btn-primary" th:href="@{/item/update-stok/rui/} + ${rui.idRequestUpdateItem}" >Update</a>
+                                    </span>
+                                </span>
+                                <span th:case="STAFF_OPERASIONAL">
+                                    <span th:if="${rui.executed == true}">
+                                        <a class="btn btn-primary" >Delivery</a>
+                                    </span>
+                                    <span th:unless="${rui.executed == true}">
+                                        -
+                                    </span>
+                                </span>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    </div>
+
+                    <div th:unless="*{listRUI.size() != 0}">
+                        <h2 th:text="'Tidak ada Request Update Item'"></h2>
+                    </div>
+                <br>
+                <a class="btn btn-primary" href="/">Home</a>
+            </div>
+        </div>
+</div>
+
+</body>
+</html>
