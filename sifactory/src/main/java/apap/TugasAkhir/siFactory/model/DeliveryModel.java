@@ -18,8 +18,8 @@ import java.time.LocalDate;
 
 @AllArgsConstructor
 @NoArgsConstructor
-// @Setter
-// @Getter
+@Setter
+@Getter
 @Entity
 @Table(name = "delivery")
 public class DeliveryModel implements Serializable {
@@ -55,60 +55,4 @@ public class DeliveryModel implements Serializable {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_request_update_item", referencedColumnName = "idRequestUpdateItem")
     private RequestUpdateItemModel requestUpdateItem;
-
-    public Integer getIdDelivery() {
-        return idDelivery;
-    }
-
-    public void setIdDelivery(Integer idDelivery) {
-        this.idDelivery = idDelivery;
-    }
-
-    public Integer getIdCabang() {
-        return idCabang;
-    }
-
-    public void setIdCabang(Integer idCabang) {
-        this.idCabang = idCabang;
-    }
-
-    public LocalDate getTanggalDibuat() {
-        return tanggalDibuat;
-    }
-
-    public void setTanggalDibuat(LocalDate tanggalDibuat) {
-        this.tanggalDibuat = tanggalDibuat;
-    }
-
-    public LocalDate getTanggalDikirim() {
-        return tanggalDikirim;
-    }
-
-    public void setTanggalDikirim(LocalDate tanggalDikirim) {
-        this.tanggalDikirim = tanggalDikirim;
-    }
-
-    public Boolean getSent() {
-        return sent;
-    }
-
-    public void setSent(Boolean sent) {
-        this.sent = sent;
-    }
-
-    public PegawaiModel getPegawai() {
-        return pegawai;
-    }
-
-    public void setPegawai(PegawaiModel pegawai) {
-        this.pegawai = pegawai;
-    }
-
-    public RequestUpdateItemModel getRequestUpdateItem() {
-        return requestUpdateItem;
-    }
-
-    public void setRequestUpdateItem(RequestUpdateItemModel requestUpdateItem) {
-        this.requestUpdateItem = requestUpdateItem;
-    }
 }

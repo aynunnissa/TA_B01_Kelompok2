@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://thymeleaf.org">
-<head>
+  <head>
     <title>SI-FACTORY</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
-          rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
-          crossorigin="anonymous">
-</head>
-<body>
-<div class="container">
-    <div class="card m-4 p-4">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <div class="card m-4 p-4">
         <div class="card-body">
             <div class="justify-content-center">
                 <h2>Tambah Pegawai</h2>
@@ -18,37 +21,43 @@
                     <label>Username</label>
 <!--                    <p th:text="*{username}"></p>-->
                     <input type="text" name="username" class="form-control" />
+              <label>Nama</label>
+              <input type="text" name="nama" class="form-control" />
 
-                    <label>Nama</label>
-                    <input type="text" name="nama" class="form-control" />
+              <label>Email</label>
+              <input type="email" name="email" class="form-control" />
 
-                    <label>Email</label>
-                    <input type="email" name="email" class="form-control" />
+              <label>Password</label>
+              <input
+                type="password"
+                name="password"
+                class="form-control"
+                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+                title="Password harus mengandung angka, huruf besar, huruf kecil, dan simbol serta minimal memiliki 8 karakter"
+              />
 
-                    <label>Password</label>
-                    <input type="password" name="password" class="form-control" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$" title="Password harus mengandung angka, huruf besar, huruf kecil, dan simbol serta minimal memiliki 8 karakter"/>
+              <label>Role</label>
+              <select name="role" class="form-control">
+                <option selected value="">--Pilih role--</option>
+                <option
+                  th:each="role : ${listRole}"
+                  th:value="${role.idRole}"
+                  th:text="${role.role}"
+                ></option>
+              </select>
 
-                    <label>Role</label>
-                    <select name="role" class="form-control">
-                        <option selected value="">--Pilih role--</option>
-                        <option th:each="role : ${listRole}"
-                                th:value="${role.idRole}"
-                                th:text="${role.role}">
-                        </option>
-                    </select>
+              <label>Tanggal Lahir</label>
+              <input type="date" name="tanggalLahir" class="form-control" />
+              <br />
 
-                    <label>Tanggal Lahir</label>
-                    <input type="date" name="tanggalLahir" class="form-control"/>
-                    <br>
-
-                    <button type="submit" class="btn btn-primary" name="save">Simpan</button>
-                    <a class="btn btn-primary" href="/">Home</a>
-
-
-                </form>
-            </div>
+              <button type="submit" class="btn btn-primary" name="save">
+                Simpan
+              </button>
+              <a class="btn btn-primary" href="/">Home</a>
+            </form>
+          </div>
         </div>
+      </div>
     </div>
-</div>
-</body>
+  </body>
 </html>
