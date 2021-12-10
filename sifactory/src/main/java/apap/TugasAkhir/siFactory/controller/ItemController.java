@@ -1,5 +1,6 @@
 package apap.TugasAkhir.siFactory.controller;
 
+
 import apap.TugasAkhir.siFactory.model.ItemModel;
 import apap.TugasAkhir.siFactory.model.PegawaiModel;
 import apap.TugasAkhir.siFactory.rest.BaseResponse;
@@ -19,6 +20,7 @@ import apap.TugasAkhir.siFactory.service.ItemService;
 import apap.TugasAkhir.siFactory.service.MesinService;
 import apap.TugasAkhir.siFactory.service.PegawaiService;
 import apap.TugasAkhir.siFactory.service.ProduksiService;
+
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.reactive.function.client.WebClientException;
 import reactor.core.publisher.Mono;
@@ -51,7 +53,23 @@ public class ItemController {
 
     @Autowired
     ItemRestService itemRestService;
+    
+    // Fitur 4
+    @GetMapping("/item/add")
+    public String addItemFormPage(Model model) {
+        model.addAttribute("item", new ItemModel());
+        model.addAttribute("mesin", mesinService.getListMesin());
+        return "form-add-item";
+    }
 
+    @PostMapping("item/add")
+    public String addItemSubmitPage(
+            @ModelAttribute ItemModel item,
+            Model model
+    ){
+        return "request-add-item-berhasil";
+    }
+  
     // Fitur 5
     @RequestMapping(value = "/item-detail", method = RequestMethod.GET)
     private String getItemDetail(Authentication auth, Model model) throws WebClientException {
