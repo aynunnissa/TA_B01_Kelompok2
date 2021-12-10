@@ -9,6 +9,8 @@ import java.util.Optional;
 
 import javax.transaction.Transactional;
 
+import apap.TugasAkhir.siFactory.model.*;
+import apap.TugasAkhir.siFactory.repository.ItemDb;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -19,10 +21,7 @@ import apap.TugasAkhir.siFactory.repository.RequestUpdateItemDb;
 import apap.TugasAkhir.siFactory.rest.ItemDetail;
 import apap.TugasAkhir.siFactory.rest.Setting;
 import reactor.core.publisher.Mono;
-import apap.TugasAkhir.siFactory.model.MesinModel;
-import apap.TugasAkhir.siFactory.model.PegawaiModel;
-import apap.TugasAkhir.siFactory.model.ProduksiModel;
-import apap.TugasAkhir.siFactory.model.RequestUpdateItemModel;
+
 @Service
 @Transactional
 public class ItemServiceImpl implements ItemService{
@@ -34,6 +33,9 @@ public class ItemServiceImpl implements ItemService{
 
     @Autowired
     ProduksiDb produksiDb;
+
+    @Autowired
+    ItemDb itemDb;
 
     private final WebClient webClient;
 

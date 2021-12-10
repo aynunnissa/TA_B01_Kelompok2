@@ -45,3 +45,5 @@ build/
 
 ### VS Code ###
 .vscode/
+
+sifactory/src/main/resources/application.properties

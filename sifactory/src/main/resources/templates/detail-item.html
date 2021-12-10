@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>List Item</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar('Home')"></nav>
+<div class="container mt-3 ">
+    <div class="card mx-auto shadow">
+        <h3 class="card-header text-center mb-3 bg-warning">Detail Item</h3>
+        <div class="card-body">
+            <div class="d-flex justify-content-start">
+                <p class="p-2 w-25">UUID Item</p>
+                <p class="p-2 w-40" th:text="': '+${uuid}"></p>
+            </div>
+            <div class="d-flex justify-content-start">
+                <p class="p-2 w-25">Nama Item</p>
+                <p class="p-2 w-25" th:text="': '+${itemDetail.nama}"></p>
+            </div>
+            <div class="d-flex justify-content-start">
+                <p class="p-2 w-25">Harga Item</p>
+                <p class="p-2 w-25" th:text="': '+${itemDetail.harga}"></p>
+            </div>
+            <div class="d-flex justify-content-start">
+                <p class="p-2 w-25">Stok Item</p>
+                <p class="p-2 w-25" th:text="': '+${itemDetail.stok}"></p>
+            </div>
+            <div class="d-flex justify-content-start">
+                <p class="p-2 w-25">Kategori Item</p>
+                <p class="p-2 w-25" th:text="': '+${itemDetail.kategori}"></p>
+            </div>
+        </div>
+        <a th:href="@{/item/item-detail}" class="ml-5 mb-5">
+            <button class="btn btn-outline-warning " type="button">Kembali</button>
+        </a>
+    </div>
+</div>
+</body>
+</html>
