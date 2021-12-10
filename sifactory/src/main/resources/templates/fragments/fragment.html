@@ -39,6 +39,9 @@
             <li th:classappend="${page == 'Home'} ? active : ''" class="nav-item">
                 <a class="nav-link" href="/">Home</a>
             </li>
+            <li th:classappend="${page == 'Item'} ? active : ''" class="nav-item">
+                <a class="nav-link" href="/">Item</a>
+            </li>
         </ul>
         <ul class="navbar-nav pull-right">
             <a class="nav-item nav-link active" th:href="@{/logout}">Logout</a>
