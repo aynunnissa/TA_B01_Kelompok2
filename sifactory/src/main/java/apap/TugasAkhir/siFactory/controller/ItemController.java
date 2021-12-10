@@ -35,8 +35,8 @@ public class ItemController {
 
     @RequestMapping(value = "/item-detail", method = RequestMethod.GET)
     private String getItemDetail(Authentication auth, Model model) throws WebClientException {
-        PegawaiModel pegawai = pegawaiService.getPegawaiByUsername(auth.getName());
-        Long role = pegawai.getRole().getIdRole();
+//        PegawaiModel pegawai = pegawaiService.getPegawaiByUsername(auth.getName());
+//        Long role = pegawai.getRole().getIdRole();
 
         BaseResponse baseResponse = itemRestService.getItemStatus(auth.getName());
         Object itemDetail = baseResponse.getResult();

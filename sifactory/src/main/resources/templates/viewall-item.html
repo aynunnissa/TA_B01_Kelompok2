@@ -31,13 +31,13 @@
         <td>
           <a th:text="${item.uuid}"></a>
         </td>
-        <td th:text="${item.nama}" ></td>
+        <td th:text="${item.nama}"></td>
         <td th:text="${item.harga}"></td>
         <td th:text="${item.stok}"></td>
         <td th:text="${item.kategori}"></td>
         <td>
           <a class="btn btn-primary btn-sm" th:href="@{/item/item-detail/} + ${item.uuid}">Detail</a>
-          <a class="btn btn-primary btn-info" th:href="@{/item/update-stok/} + ${item.uuid}" >Ubah</a>
+          <a class="btn btn-primary btn-info" th:href="@{/item/update-stok/} + ${item.uuid}">Ubah</a>
         </td>
       </tr>
       </tbody>
