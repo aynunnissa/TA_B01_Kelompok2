@@ -52,6 +52,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring().antMatchers("/api-docs");
     }
 
+
     // @Bean
     // public BCryptPasswordEncoder encoder(){
     // return new BCryptPasswordEncoder();
@@ -65,6 +66,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //                .withUser("useradmin").password(encoder.encode("Admin123"))
 //                .roles("ADMIN");
 //    }
+
 
     // @Autowired
     // public void configureGlobal(AuthenticationManagerBuilder auth) throws
