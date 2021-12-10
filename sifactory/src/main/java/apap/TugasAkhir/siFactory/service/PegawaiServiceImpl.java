@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @Service
 @Transactional
-public class PegawaiServiceImpl implements PegawaiService{
+public class PegawaiServiceImpl implements PegawaiService {
     @Autowired
     private PegawaiDb pegawaiDb;
 
@@ -40,16 +40,16 @@ public class PegawaiServiceImpl implements PegawaiService{
         return pegawaiDb.findAll();
     }
 
-    @Override
-    public boolean isMatch(String passwordBaru, String passwordLama) {
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        return passwordEncoder.matches(passwordBaru, passwordLama);
-    }
+    // @Override
+    // public boolean isMatch(String passwordBaru, String passwordLama) {
+    // BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    // return passwordEncoder.matches(passwordBaru, passwordLama);
+    // }
 
-    @Override
-    public void setPassword(PegawaiModel pegawai, String passwordBaru) {
-        pegawai.setPassword(passwordBaru);
-    }
+    // @Override
+    // public void setPassword(PegawaiModel pegawai, String passwordBaru) {
+    // pegawai.setPassword(passwordBaru);
+    // }
 
     @Override
     public void addCounterPegawai(String nama) {
@@ -57,5 +57,23 @@ public class PegawaiServiceImpl implements PegawaiService{
         Integer prevCounter = pegawaiInput.getCounter();
         Integer currCounter = prevCounter + 1;
         pegawaiInput.setCounter(currCounter);
+    }
+
+    @Override
+    public boolean checkUsername(String username) {
+        boolean avail;
+        PegawaiModel usernameCheck = pegawaiDb.findByUsername(username);
+        if (usernameCheck == null) {
+            avail = true;
+        } else {
+            avail = false;
+        }
+        return avail;
+    }
+
+    @Override
+    public PegawaiModel getPegawaiByIdPegawai(Long idPegawai) {
+        PegawaiModel pegawai = pegawaiDb.findByIdPegawai(idPegawai);
+        return pegawai;
     }
 }
