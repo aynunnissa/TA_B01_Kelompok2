@@ -45,8 +45,8 @@ public class PegawaiController {
         if(avail){
             String nama = SecurityContextHolder.getContext().getAuthentication().getName();
             pegawai.setCounter(0);
-            pegawaiService.addCounterPegawai(nama);
             pegawaiService.addPegawai(pegawai);
+            pegawaiService.addCounterPegawai(nama);
             model.addAttribute("pegawai", pegawai);
         }
         else{
