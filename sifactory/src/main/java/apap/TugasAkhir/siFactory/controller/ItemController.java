@@ -64,7 +64,7 @@ public class ItemController {
         @PathVariable String uuid,
         String userNamePegawai,
         Integer jumlahStok,
-        Long idMesin,
+        long idMesin,
         Model model
     ){
         PegawaiModel pegawai = pegawaiService.getPegawaiByUsername(userNamePegawai);
@@ -82,7 +82,7 @@ public class ItemController {
     // Fitur 11
     @GetMapping("item/update-stok/rui/{ruiId}")
     public String updateStockFormPageRUP(
-    @PathVariable Long ruiId,
+    @PathVariable long ruiId,
     Model model
     ){
         RequestUpdateItemModel rui = itemService.getRequestUpdateItem(ruiId);
@@ -107,17 +107,12 @@ public class ItemController {
         @PathVariable long ruiId,
         String userNamePegawai,
         Integer jumlahStok,
-        Long idMesin,
+        long idMesin,
         Model model
     ){
         RequestUpdateItemModel rui = itemService.getRequestUpdateItem(ruiId);
         String uuid = rui.getIdItem();
         PegawaiModel pegawai = pegawaiService.getPegawaiByUsername(userNamePegawai);
-        System.out.println(ruiId);
-        System.out.println(userNamePegawai);
-        System.out.println(jumlahStok);
-        System.out.println(idMesin);
-        
         try{
             String statusUpdate = itemService.updatestok(uuid,  jumlahStok, idMesin, pegawai, ruiId);
             if(statusUpdate.equals("berhasil")){

@@ -11,7 +11,7 @@ import java.util.List;
 public interface ItemService {
     String getKategoryItem (String uuid);
     Integer getIdKategori(String kategori);
-    String updatestok(String uuid, Integer jumlahstok, long idMesin, PegawaiModel pegawai, Long ruiId);
+    String updatestok(String uuid, Integer jumlahstok, long idMesin, PegawaiModel pegawai, long ruiId);
     RequestUpdateItemModel getRequestUpdateItem (long rui);
     List<RequestUpdateItemModel> getListRequestUpdateItem ();
 }
