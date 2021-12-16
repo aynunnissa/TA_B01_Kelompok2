@@ -30,7 +30,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/**").permitAll()
                 .antMatchers("/v3/api-docs/**").permitAll()
                 .antMatchers("/swagger-ui/**").permitAll()
-                // .antMatchers("/pegawai/add").hasAuthority("ADMIN")
+                .antMatchers("/pegawai/add").hasAuthority("ADMIN")
                 .antMatchers("/delivery/viewAll").hasAnyAuthority("STAFF_KURIR", "STAFF_OPERASIONAL")
                 .antMatchers("/item/update-stok/**").hasAuthority("STAFF_GUDANG")
                 .antMatchers("/item/update-stok/rui/**").hasAuthority("STAFF_GUDANG")
