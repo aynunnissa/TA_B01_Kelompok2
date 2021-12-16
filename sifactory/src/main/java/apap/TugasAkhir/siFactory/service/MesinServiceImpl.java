@@ -12,12 +12,12 @@ import apap.TugasAkhir.siFactory.repository.MesinDb;
 
 @Service
 @Transactional
-public class MesinServiceImpl implements MesinService{
+public class MesinServiceImpl implements MesinService {
     @Autowired
     MesinDb mesinDb;
 
     @Override
-    public List<MesinModel> getListMesin(){
+    public List<MesinModel> getListMesin() {
         return mesinDb.findAll();
     }
 }
