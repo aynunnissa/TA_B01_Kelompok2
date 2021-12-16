@@ -6,6 +6,5 @@ import org.springframework.stereotype.Repository;
 import apap.TugasAkhir.siFactory.model.MesinModel;
 
 @Repository
-public interface MesinDb extends JpaRepository <MesinModel,Long> {    
+public interface MesinDb extends JpaRepository<MesinModel, Long> {
 }
-
