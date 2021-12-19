@@ -72,23 +72,16 @@ public class DeliveryController {
             Model model,
             HttpServletRequest request,
             @PathVariable int idDelivery) {
-        String response = deliveryService.getListIdCabang().share().block();
-        int idCabang = deliveryService.getIdCabang(idDelivery);
-        JSONObject jsonObject = new JSONObject(response);
-        JSONArray listIdCabang = jsonObject.getJSONArray("result");
-
+        JSONArray listIdCabang = deliveryService.getListIdCabang(idDelivery);
         model.addAttribute("idDelivery", idDelivery);
 
-        for (int i = 0; i < listIdCabang.length(); i++) {
-            if (listIdCabang.getJSONObject(i).get("id").equals(idCabang)) {
-                model.addAttribute("success", true);
-                model.addAttribute("alamat", listIdCabang.getJSONObject(i).get("alamat"));
-                DeliveryModel delivery = deliveryService.getDeliveryByIdDelivery(idDelivery);
-                delivery.setSent(true);
-                deliveryService.updateDelivery(delivery);
-                pegawaiService.addCounterPegawai(request.getRemoteUser());
-                return "send-delivery";
-            }
+        JSONObject result = deliveryService.checkIdCabang(listIdCabang, idDelivery, request.getRemoteUser());
+
+        if (result.getBoolean("success")) {
+            System.out.println(result.getBoolean("success"));
+            model.addAttribute("success", true);
+            model.addAttribute("alamat", result.getString("alamat"));
+            return "send-delivery";
         }
         model.addAttribute("success", false);
         return "send-delivery";
