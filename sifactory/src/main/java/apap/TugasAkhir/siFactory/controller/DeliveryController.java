@@ -67,7 +67,7 @@ public class DeliveryController {
         return "viewall-delivery";
     }
 
-    @GetMapping("/delivery/send/{idDelivery}")
+    @PutMapping("/delivery/send/{idDelivery}")
     private String sendDelivery(
             Model model,
             HttpServletRequest request,

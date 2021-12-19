@@ -31,28 +31,41 @@
               </thead>
               <tbody>
                 <tr class="text-center" th:each="delivery : ${listDelivery}">
-                  <td th:text="${delivery.idDelivery}" scope="col"></td>
-                  <td th:text="${delivery.idCabang}" scope="col"></td>
-                  <td th:text="${delivery.tanggalDibuat}" scope="col"></td>
-                  <td th:text="${delivery.tanggalDikirim}" scope="col"></td>
-                  <td
-                    th:text="${delivery.requestUpdateItem} ? ${delivery.requestUpdateItem.idRequestUpdateItem} : '-'"
-                    scope="col"
-                  ></td>
-                  <td th:text="${delivery.pegawai.idPegawai}" scope="col"></td>
-                  <td th:if="${delivery.sent} == true" scope="col">Terkirim</td>
-                  <td th:if="${delivery.sent} == false">
-                    <a
-                      class="btn btn-primary mx-2"
-                      th:href="@{/delivery/send/} + ${delivery.idDelivery}"
-                      th:if="${role} == 'STAFF_KURIR'"
-                    >
-                      Kirim
-                    </a>
-                    <span th:if="${role} == 'STAFF_OPERASIONAL'">
-                      Belum Dikirim
-                    </span>
-                  </td>
+                  <form
+                    th:action="@{/delivery/send/} + ${delivery.idDelivery}"
+                    th:method="put"
+                    th:data-id="${delivery.idDelivery}"
+                    onsubmit="return confirm('Apakah anda yakin untuk mengirim delivery dengan id ' + this.getAttribute('data-id') + '?');"
+                  >
+                    <td th:text="${delivery.idDelivery}" scope="col"></td>
+                    <td th:text="${delivery.idCabang}" scope="col"></td>
+                    <td th:text="${delivery.tanggalDibuat}" scope="col"></td>
+                    <td th:text="${delivery.tanggalDikirim}" scope="col"></td>
+                    <td
+                      th:text="${delivery.requestUpdateItem} ? ${delivery.requestUpdateItem.idRequestUpdateItem} : '-'"
+                      scope="col"
+                    ></td>
+                    <td
+                      th:text="${delivery.pegawai.idPegawai}"
+                      scope="col"
+                    ></td>
+                    <td th:if="${delivery.sent} == true" scope="col">
+                      Terkirim
+                    </td>
+                    <td th:if="${delivery.sent} == false">
+                      <button
+                        class="btn btn-primary"
+                        type="submit"
+                        name="send"
+                        th:if="${role} == 'STAFF_KURIR'"
+                      >
+                        Kirim
+                      </button>
+                      <span th:if="${role} == 'STAFF_OPERASIONAL'">
+                        Belum Dikirim
+                      </span>
+                    </td>
+                  </form>
                 </tr>
               </tbody>
             </table>
