@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,7 +38,9 @@ public class DeliveryServiceImpl implements DeliveryService {
         for (int i = 0; i < listIdCabang.length(); i++) {
             if (listIdCabang.getJSONObject(i).get("id").equals(idCabang)) {
                 DeliveryModel delivery = getDeliveryByIdDelivery(idDelivery);
+                LocalDate tanggalKirim = LocalDate.now();
                 delivery.setSent(true);
+                delivery.setTanggalDikirim(tanggalKirim);
                 updateDelivery(delivery);
                 pegawaiService.addCounterPegawai(username);
                 result.put("success", true);

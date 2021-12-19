@@ -35,8 +35,7 @@ public class DeliveryModel implements Serializable {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate tanggalDibuat;
 
-    @NotNull
-    @Column(name = "tanggal_dikirim", nullable = false)
+    @Column(name = "tanggal_dikirim")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate tanggalDikirim;
 
