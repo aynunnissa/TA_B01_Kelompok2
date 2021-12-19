@@ -4,7 +4,12 @@ import apap.TugasAkhir.siFactory.model.DeliveryModel;
 import apap.TugasAkhir.siFactory.repository.DeliveryDb;
 import apap.TugasAkhir.siFactory.rest.Setting;
 import com.fasterxml.jackson.databind.util.JSONPObject;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.json.JSONString;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
@@ -30,16 +35,41 @@ public class DeliveryServiceImpl implements DeliveryService {
     @Autowired
     DeliveryDb deliveryDb;
 
+    @Qualifier("pegawaiServiceImpl")
+    @Autowired
+    private PegawaiService pegawaiService;
+
     @Override
     public List<DeliveryModel> getListDelivery() {
         return deliveryDb.findAllByOrderByIdDeliveryAsc();
     }
 
     @Override
-    public Mono<String> getListIdCabang() {
-        Mono<String> stringMono = webClient.get().uri("/api/cabang/listAlamat")
-                .retrieve().bodyToMono(String.class);
-        return stringMono;
+    public JSONArray getListIdCabang(int idDelivery) {
+        String response = webClient.get().uri("/api/cabang/listAlamat")
+                .retrieve().bodyToMono(String.class).share().block();
+
+        JSONObject jsonObject = new JSONObject(response);
+        return jsonObject.getJSONArray("result");
+    }
+
+    @Override
+    public JSONObject checkIdCabang(JSONArray listIdCabang, int idDelivery, String username) {
+        JSONObject result = new JSONObject();
+        int idCabang = getIdCabang(idDelivery);
+        for (int i = 0; i < listIdCabang.length(); i++) {
+            if (listIdCabang.getJSONObject(i).get("id").equals(idCabang)) {
+                DeliveryModel delivery = getDeliveryByIdDelivery(idDelivery);
+                delivery.setSent(true);
+                updateDelivery(delivery);
+                pegawaiService.addCounterPegawai(username);
+                result.put("success", true);
+                result.put("alamat", listIdCabang.getJSONObject(i).get("alamat"));
+                return result;
+            }
+        }
+        result.put("success", false);
+        return result;
     }
 
     @Override
