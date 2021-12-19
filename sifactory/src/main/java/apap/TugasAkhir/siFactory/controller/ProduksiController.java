@@ -1,21 +1,16 @@
 package apap.TugasAkhir.siFactory.controller;
 
-import apap.TugasAkhir.siFactory.model.ItemModel;
 import apap.TugasAkhir.siFactory.model.ProduksiModel;
-import apap.TugasAkhir.siFactory.service.ItemRestService;
 import apap.TugasAkhir.siFactory.service.ProduksiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import apap.TugasAkhir.siFactory.rest.BaseResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 
 @Controller
