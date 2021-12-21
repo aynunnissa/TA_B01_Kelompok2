@@ -11,8 +11,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.databind.annotation.JsonAppend.Prop;
-
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -37,8 +35,7 @@ public class DeliveryModel implements Serializable {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate tanggalDibuat;
 
-    @NotNull
-    @Column(name = "tanggal_dikirim", nullable = false)
+    @Column(name = "tanggal_dikirim")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate tanggalDikirim;
 
