@@ -2,33 +2,29 @@ package apap.TugasAkhir.siFactory.service;
 
 import apap.TugasAkhir.siFactory.model.DeliveryModel;
 import apap.TugasAkhir.siFactory.repository.DeliveryDb;
-import apap.TugasAkhir.siFactory.rest.Setting;
-import com.fasterxml.jackson.databind.util.JSONPObject;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.MediaType;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
 
 import javax.transaction.Transactional;
+
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional
 public class DeliveryServiceImpl implements DeliveryService {
 
-    public DeliveryServiceImpl(WebClient.Builder webClientBuilder) {
-        this.webClient = webClientBuilder.baseUrl(Setting.siRetailListIdCabang).build();
-    }
-
-    private final WebClient webClient;
-
     @Autowired
     DeliveryDb deliveryDb;
+
+    @Qualifier("pegawaiServiceImpl")
+    @Autowired
+    private PegawaiService pegawaiService;
 
     @Override
     public List<DeliveryModel> getListDelivery() {
@@ -36,10 +32,24 @@ public class DeliveryServiceImpl implements DeliveryService {
     }
 
     @Override
-    public Mono<String> getListIdCabang() {
-        Mono<String> stringMono = webClient.get().uri("/api/cabang/listAlamat")
-                .retrieve().bodyToMono(String.class);
-        return stringMono;
+    public JSONObject sendDelivery(JSONArray listIdCabang, int idDelivery, String username) {
+        JSONObject result = new JSONObject();
+        int idCabang = getIdCabang(idDelivery);
+        for (int i = 0; i < listIdCabang.length(); i++) {
+            if (listIdCabang.getJSONObject(i).get("id").equals(idCabang)) {
+                DeliveryModel delivery = getDeliveryByIdDelivery(idDelivery);
+                LocalDate tanggalKirim = LocalDate.now();
+                delivery.setSent(true);
+                delivery.setTanggalDikirim(tanggalKirim);
+                updateDelivery(delivery);
+                pegawaiService.addCounterPegawai(username);
+                result.put("success", true);
+                result.put("alamat", listIdCabang.getJSONObject(i).get("alamat"));
+                return result;
+            }
+        }
+        result.put("success", false);
+        return result;
     }
 
     @Override
