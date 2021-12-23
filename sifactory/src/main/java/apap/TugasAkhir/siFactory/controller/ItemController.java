@@ -120,7 +120,7 @@ public class ItemController {
         String kategori = itemService.getKategoryItem(uuid);
         int idKategori = itemService.getIdKategori(kategori);
         for (MesinModel mesin : listMesin) {
-            if (mesin.getIdKategori() == idKategori) {
+            if (mesin.getIdKategori() == idKategori && mesin.getKapasitas() > 0 ) {
                 listMesinFiltered.add(mesin);
             }
         }
@@ -159,7 +159,7 @@ public class ItemController {
         List<MesinModel> listMesinFiltered = new ArrayList<MesinModel>();
         long idKategori = rui.getIdKategori();
         for (MesinModel mesin : listMesin) {
-            if (mesin.getIdKategori() ==  idKategori) {
+            if (mesin.getIdKategori() ==  idKategori && mesin.getKapasitas() > 0) {
                 listMesinFiltered.add(mesin);
             }
         }
