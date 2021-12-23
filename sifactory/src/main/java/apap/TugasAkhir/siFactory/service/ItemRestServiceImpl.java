@@ -31,5 +31,10 @@ public class ItemRestServiceImpl implements ItemRestService{
         return this.webClient.get().uri("/api/item/"+uuid).retrieve().bodyToMono(BaseResponse.class).block();
     }
 
+    @Override
+    public BaseResponse addProposeItem(String uuid) {
+        return this.webClient.get().uri("/api/item/"+uuid).retrieve().bodyToMono(BaseResponse.class).block();
+    }
+
 
 }
