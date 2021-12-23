@@ -1,25 +1,17 @@
 package apap.TugasAkhir.siFactory.controller;
 
 
-import apap.TugasAkhir.siFactory.model.ItemModel;
-import apap.TugasAkhir.siFactory.model.PegawaiModel;
+import apap.TugasAkhir.siFactory.model.*;
 import apap.TugasAkhir.siFactory.rest.BaseResponse;
-import apap.TugasAkhir.siFactory.service.ItemRestService;
-import apap.TugasAkhir.siFactory.service.ItemService;
-import apap.TugasAkhir.siFactory.service.PegawaiService;
+import apap.TugasAkhir.siFactory.service.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.Authentication;
-import apap.TugasAkhir.siFactory.model.MesinModel;
 import apap.TugasAkhir.siFactory.model.PegawaiModel;
-import apap.TugasAkhir.siFactory.model.ProduksiModel;
-import apap.TugasAkhir.siFactory.model.RequestUpdateItemModel;
 import apap.TugasAkhir.siFactory.rest.ItemDetail;
 import apap.TugasAkhir.siFactory.service.ItemService;
-import apap.TugasAkhir.siFactory.service.MesinService;
 import apap.TugasAkhir.siFactory.service.PegawaiService;
-import apap.TugasAkhir.siFactory.service.ProduksiService;
 
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.reactive.function.client.WebClientException;
@@ -34,6 +26,8 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping("/item")
@@ -53,6 +47,9 @@ public class ItemController {
 
     @Autowired
     ItemRestService itemRestService;
+
+    @Autowired
+    RoleService roleService;
     
     // Fitur 4
     @GetMapping("/item/add")
@@ -188,9 +185,40 @@ public class ItemController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) auth.getPrincipal();
         String username = user.getUsername();
-        String role = pegawaiService.getPegawaiByUsername(username).getRole().getRole();
-        model.addAttribute("role", role);
+//        String role = pegawaiService.getPegawaiByUsername(username).getRole().getRole();
+//        model.addAttribute("role", role);
         model.addAttribute("listRUI", listRUI);
         return "viewall-request-update-item";
+    }
+
+    // Fitur 12
+    @GetMapping("/request-update-item/assign-kurir/{ruiId}")
+    public String assignKurirFormPage (
+            @PathVariable Long ruiId,
+            Model model) {
+        List<PegawaiModel> listPegawai = pegawaiService.getListPegawai();
+        List<PegawaiModel> listPegawaiKurir = new ArrayList<PegawaiModel>();
+        for (PegawaiModel kurir : listPegawai) {
+            String role = kurir.getRole().getRole();
+            if (role.equals("STAFF_KURIR")) {
+                listPegawaiKurir.add(kurir);
+            }
+        }
+//        System.out.println(listPegawaiKurir);
+        model.addAttribute("listPegawaiKurir", listPegawaiKurir);
+        return "form-assign-kurir";
+    }
+
+    // Fitur 12
+    @PostMapping("/request-update-item/assign-kurir/{ruiId}")
+    public String assignKurirSubmitPage(
+            @PathVariable Long ruiId,
+//            String userNamePegawai,
+//            Integer jumlahStok,
+//            long idMesin,
+            Model model) {
+
+        return "assign-kurir-berhasil";
+
     }
 }
