@@ -64,7 +64,10 @@
             <a class="nav-link" href="/">Home</a>
           </li>
           <li th:classappend="${page == 'Item'} ? active : ''" class="nav-item">
-            <a class="nav-link" href="/">Item</a>
+            <a class="nav-link" href="/item/item-detail">Item</a>
+          </li>
+          <li th:classappend="${page == 'Pegawai'} ? active : ''" class="nav-item">
+            <a class="nav-link" href="/pegawai/view-all">Pegawai</a>
           </li>
         </ul>
         <ul class="navbar-nav pull-right">
