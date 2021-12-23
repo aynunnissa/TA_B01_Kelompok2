@@ -4,6 +4,7 @@ package apap.TugasAkhir.siFactory.controller;
 import apap.TugasAkhir.siFactory.model.ItemModel;
 import apap.TugasAkhir.siFactory.model.PegawaiModel;
 import apap.TugasAkhir.siFactory.rest.BaseResponse;
+import apap.TugasAkhir.siFactory.rest.ProposeItem;
 import apap.TugasAkhir.siFactory.service.ItemRestService;
 import apap.TugasAkhir.siFactory.service.ItemService;
 import apap.TugasAkhir.siFactory.service.PegawaiService;
@@ -57,16 +58,26 @@ public class ItemController {
     // Fitur 4
     @GetMapping("/add")
     public String addItemFormPage(Model model) {
-        model.addAttribute("item", new ItemModel());
-        model.addAttribute("mesin", mesinService.getListMesin());
+        //HashMap<Integer, Kategori> listKategori = mesinService.getListKategoriMesin();
+        //List<ItemModel> listKategori = itemService.getKategoryItem();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String role = authentication.getAuthorities().toString();
+
+        model.addAttribute("role", role);
+       // model.addAttribute("listKategori", new listKategori);
+        model.addAttribute("proposeItem", new ProposeItem());
+
         return "form-add-item";
     }
 
     @PostMapping("/add")
     public String addItemSubmitPage(
-            @ModelAttribute ItemModel item,
+            @ModelAttribute ProposeItem proposeItem,
             Model model
     ){
+//        ProposeItem proposedItem = ItemRestService.addProposeItem(proposeItem);
+//        //pegawaiService.setCounterPegawai();
+//        model.addAttribute("proposedItem", proposedItem);
         return "request-add-item-berhasil";
     }
   

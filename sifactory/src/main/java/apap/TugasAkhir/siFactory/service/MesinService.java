@@ -6,4 +6,5 @@ import apap.TugasAkhir.siFactory.model.MesinModel;
 
 public interface MesinService {
     List<MesinModel> getListMesin();
+    List<MesinModel> getListKategoriMesin();
 }

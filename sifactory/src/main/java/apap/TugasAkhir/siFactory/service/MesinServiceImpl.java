@@ -1,6 +1,7 @@
 package apap.TugasAkhir.siFactory.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -20,4 +21,13 @@ public class MesinServiceImpl implements MesinService {
     public List<MesinModel> getListMesin() {
         return mesinDb.findAll();
     }
+
+    @Override
+    public List<MesinModel> getListKategoriMesin() {
+        return mesinDb.findAll();
+    }
+//    @Override
+//    public List<MesinModel> getListKategoriMesin() {
+//        return mesinDb.findAll().stream().map(MesinModel, MesinModel.getIdKategori()).collect(Collectors.toList());
+//    }
 }
