@@ -11,6 +11,7 @@ import apap.TugasAkhir.siFactory.model.RoleModel;
 import apap.TugasAkhir.siFactory.service.PegawaiService;
 import apap.TugasAkhir.siFactory.service.RoleService;
 
+import java.util.HashMap;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -61,7 +62,12 @@ public class PegawaiController {
     public String listPegawai(Model model){
         List<PegawaiModel> listPegawai = pegawaiService.getListPegawai();
         model.addAttribute("listPegawai", listPegawai);
-                return "viewall-pegawai";
+        HashMap<Long,Integer> totalGaji = new HashMap<>();
+        for(PegawaiModel pegawai: listPegawai){
+            totalGaji.put(pegawai.getIdPegawai(), pegawai.getCounter()*pegawai.getRole().getBaseWages());
+        }
+        model.addAttribute("totalGaji", totalGaji);
+        return "viewall-pegawai";
     }
 }
 
