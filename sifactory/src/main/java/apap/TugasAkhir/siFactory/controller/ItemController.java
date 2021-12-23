@@ -55,14 +55,14 @@ public class ItemController {
     ItemRestService itemRestService;
     
     // Fitur 4
-    @GetMapping("/item/add")
+    @GetMapping("/add")
     public String addItemFormPage(Model model) {
         model.addAttribute("item", new ItemModel());
         model.addAttribute("mesin", mesinService.getListMesin());
         return "form-add-item";
     }
 
-    @PostMapping("item/add")
+    @PostMapping("/add")
     public String addItemSubmitPage(
             @ModelAttribute ItemModel item,
             Model model
