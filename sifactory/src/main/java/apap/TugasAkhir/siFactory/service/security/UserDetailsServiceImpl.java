@@ -1,4 +1,4 @@
-package apap.TugasAkhir.siFactory.security;
+package apap.TugasAkhir.siFactory.service.security;
 
 import apap.TugasAkhir.siFactory.repository.PegawaiDb;
 import apap.TugasAkhir.siFactory.service.PegawaiService;
