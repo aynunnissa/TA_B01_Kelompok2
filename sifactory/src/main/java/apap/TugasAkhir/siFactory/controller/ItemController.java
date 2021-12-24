@@ -4,6 +4,11 @@ package apap.TugasAkhir.siFactory.controller;
 import apap.TugasAkhir.siFactory.model.*;
 import apap.TugasAkhir.siFactory.rest.BaseResponse;
 import apap.TugasAkhir.siFactory.service.*;
+import apap.TugasAkhir.siFactory.rest.ProposeItem;
+import apap.TugasAkhir.siFactory.service.ItemRestService;
+import apap.TugasAkhir.siFactory.service.ItemService;
+import apap.TugasAkhir.siFactory.service.PegawaiService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.Authentication;
@@ -54,18 +59,28 @@ public class ItemController {
 
 
     // Fitur 4
-    @GetMapping("/item/add")
+    @GetMapping("/add")
     public String addItemFormPage(Model model) {
-        model.addAttribute("item", new ItemModel());
-        model.addAttribute("mesin", mesinService.getListMesin());
+        //HashMap<Integer, Kategori> listKategori = mesinService.getListKategoriMesin();
+        //List<ItemModel> listKategori = itemService.getKategoryItem();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String role = authentication.getAuthorities().toString();
+
+        model.addAttribute("role", role);
+       // model.addAttribute("listKategori", new listKategori);
+        model.addAttribute("proposeItem", new ProposeItem());
+
         return "form-add-item";
     }
 
-    @PostMapping("item/add")
+    @PostMapping("/add")
     public String addItemSubmitPage(
-            @ModelAttribute ItemModel item,
+            @ModelAttribute ProposeItem proposeItem,
             Model model
     ){
+//        ProposeItem proposedItem = ItemRestService.addProposeItem(proposeItem);
+//        //pegawaiService.setCounterPegawai();
+//        model.addAttribute("proposedItem", proposedItem);
         return "request-add-item-berhasil";
     }
   
@@ -108,7 +123,7 @@ public class ItemController {
         String kategori = itemService.getKategoryItem(uuid);
         int idKategori = itemService.getIdKategori(kategori);
         for (MesinModel mesin : listMesin) {
-            if (mesin.getIdKategori() == idKategori) {
+            if (mesin.getIdKategori() == idKategori && mesin.getKapasitas() > 0 ) {
                 listMesinFiltered.add(mesin);
             }
         }
@@ -147,7 +162,7 @@ public class ItemController {
         List<MesinModel> listMesinFiltered = new ArrayList<MesinModel>();
         long idKategori = rui.getIdKategori();
         for (MesinModel mesin : listMesin) {
-            if (mesin.getIdKategori() ==  idKategori) {
+            if (mesin.getIdKategori() ==  idKategori && mesin.getKapasitas() > 0) {
                 listMesinFiltered.add(mesin);
             }
         }

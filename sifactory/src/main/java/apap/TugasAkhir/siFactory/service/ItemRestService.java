@@ -9,4 +9,5 @@ import java.util.UUID;
 public interface ItemRestService {
     BaseResponse getItemStatus(String uuid);
     BaseResponse getItemDetail(String uuid);
+    BaseResponse addProposeItem(String uuid);
 }

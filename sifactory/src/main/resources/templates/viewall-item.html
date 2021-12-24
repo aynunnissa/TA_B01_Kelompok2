@@ -7,42 +7,69 @@
   <object th:include="fragments/fragment :: js" th:remove="tag"></object>
 </head>
 <body>
-<nav th:replace="fragments/fragment :: navbar('Home')"></nav>
+<nav th:replace="fragments/fragment :: navbar('Item')"></nav>
 
   <div class="container mt-3 ">
     <br>
-    <h3 class="text-left mb-3">Daftar Item</h3>
-    <br>
-    <table class="table table-striped ">
-      <thead>
-      <tr class="bg-warning">
-        <th>No</th>
-        <th>UUID</th>
-        <th>Nama</th>
-        <th>Harga</th>
-        <th>Stok</th>
-        <th>Kategori</th>
-        <th>Aksi</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr th:each="item, iterationStatus : ${itemDetail}">
-        <td th:text="${iterationStatus.count}"></td>
-        <td>
-          <a th:text="${item.uuid}"></a>
-        </td>
-        <td th:text="${item.nama}"></td>
-        <td th:text="${item.harga}"></td>
-        <td th:text="${item.stok}"></td>
-        <td th:text="${item.kategori}"></td>
-        <td>
-          <a class="btn btn-primary btn-sm" th:href="@{/item/item-detail/} + ${item.uuid}">Detail</a>
-          <a class="btn btn-primary btn-info" th:href="@{/item/update-stok/} + ${item.uuid}">Ubah</a>
-        </td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
+    <div class="card m-4 p-4">
+      <div class="card-body">
+        <h3 class="text-left mb-3">Daftar Item</h3>
+        <br>
+        <div th:if="${#lists.size(itemDetail) == 0}">
+          <div class="d-flex justify-content-center">
+            <img th:src="@{/images/empty.svg}" class="text-center" style="height: 200px;"></img>
+          </div>
+          <p class="text-center mt-3">Belum ada item tersedia</p>
+        </div>
+        <table class="table table-striped th:if="${#lists.size(itemDetail) >
+          <thead>
+          <tr class="bg-warning">
+            <th>No</th>
+            <th>UUID</th>
+            <th>Nama</th>
+            <th>Harga</th>
+            <th>Stok</th>
+            <th>Kategori</th>
+            <th>Aksi</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr th:each="item, iterationStatus : ${itemDetail}">
+            <td th:text="${iterationStatus.count}"></td>
+            <td>
+              <a th:text="${item.uuid}"></a>
+            </td>
+            <td th:text="${item.nama}"></td>
+            <td th:text="${item.harga}"></td>
+            <td th:text="${item.stok}"></td>
+            <td th:text="${item.kategori}"></td>
+            <td>
+              <a class="btn btn-primary btn-sm" th:href="@{/item/item-detail/} + ${item.uuid}">Detail</a>
+              <a class="btn btn-primary btn-info" th:href="@{/item/update-stok/} + ${item.uuid}">Ubah</a>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+        <a href="/"
+        ><svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-arrow-left"
+                viewBox="0 0 16 16"
+        >
+          <path
+                  fill-rule="evenodd"
+                  d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"
+          />
+        </svg>
+          Home</a
+        >
+      </div>
+      </div>
+    </div>
+
 
 </body>
 </html>
