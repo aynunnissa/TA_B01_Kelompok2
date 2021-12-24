@@ -55,6 +55,7 @@ public class ItemController {
     @Autowired
     RoleService roleService;
 
+    @Qualifier("deliveryServiceImpl")
     @Autowired
     DeliveryService deliveryService;
 
