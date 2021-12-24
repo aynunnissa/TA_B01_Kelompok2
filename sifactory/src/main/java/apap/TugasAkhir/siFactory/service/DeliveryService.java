@@ -1,6 +1,8 @@
 package apap.TugasAkhir.siFactory.service;
 
 import apap.TugasAkhir.siFactory.model.DeliveryModel;
+import apap.TugasAkhir.siFactory.model.PegawaiModel;
+import apap.TugasAkhir.siFactory.model.RequestUpdateItemModel;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -20,4 +22,6 @@ public interface DeliveryService {
     int getIdCabang(int idDelivery);
 
     JSONObject sendDelivery(JSONArray listIdCabang, int idDelivery, String username);
+
+    DeliveryModel createDelivery(PegawaiModel pegawai, RequestUpdateItemModel rui, PegawaiModel Kurir);
 }
