@@ -17,23 +17,24 @@
             <div class="justify-content-center">
                 <h2>Buat Item Baru</h2>
                 <br>
-                <form th:action="@{/item/add}" th:object="${item}" method="POST">
+                <form th:action="@{/item/add}" method="POST" onsubmit="return confirm('Apakah anda yakin untuk request item?');">
+                    <input type="hidden" name="userNamePegawai" th:value="${#httpServletRequest.userPrincipal.name}">
                     Nama Item : <br>
-                    <input class="form-control" type="text" name="namaItem"/>
+                    <input class="form-control" type="text" name="nama"/>
                     <br><br>
 
                     Harga Item: <br>
-                    <input class="form-control" type="text" name="hargaItem"/>
+                    <input class="form-control" type="number" name="harga"/>
                     <br><br>
 
                     Stok Item : <br>
-                    <input class="form-control" type="text" name="stokItem"/>
+                    <input class="form-control" type="number" name="stok"/>
                     <br><br>
 
 <!--                Untuk Kategori Item-->
 
                     Kategori Item : <br>
-                    <select name="kategoriItem">
+                    <select name="kategori">
                         <option value="1">BUKU</option>
                         <option value="2">DAPUR</option>
                         <option value="3">MAKANAN & MINUMAN</option>

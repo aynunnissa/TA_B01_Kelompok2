@@ -19,6 +19,7 @@ import apap.TugasAkhir.siFactory.repository.MesinDb;
 import apap.TugasAkhir.siFactory.repository.ProduksiDb;
 import apap.TugasAkhir.siFactory.repository.RequestUpdateItemDb;
 import apap.TugasAkhir.siFactory.rest.ItemDetail;
+import apap.TugasAkhir.siFactory.rest.RequestItemDetail;
 import apap.TugasAkhir.siFactory.rest.Setting;
 import reactor.core.publisher.Mono;
 
@@ -44,7 +45,23 @@ public class ItemServiceImpl implements ItemService{
     }
 
     @Override
-    public void addItem(ItemModel item) { itemDb.save(item); }
+    public Boolean addItem(String nama, int harga, int stok, int kategori, PegawaiModel pegawai) { 
+        HashMap<String, Object> data = new HashMap<>();
+        data.put("nama", nama);
+        data.put("harga", harga);
+        data.put("stok", stok);
+        data.put("kategori", kategori);
+        System.out.println(nama + " " + harga+ " " +stok+ " " +kategori);
+        Mono<RequestItemDetail> addItem = this.webClient.post().uri("https://tugasapapb01.herokuapp.com/api/v1/item-factory").syncBody(data).retrieve().bodyToMono(RequestItemDetail.class);
+        int status = addItem.block().getStatus();
+
+        if(status == 201){
+            int counter = pegawai.getCounter() +1;
+            pegawai.setCounter(counter);
+            return true;
+        }
+        return false;
+    }
 
     @Override
     public List<ItemModel> getListKategori() { return itemDb.findAll(); }

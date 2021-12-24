@@ -14,7 +14,7 @@
         <div class="card-body">
             <div>
                 <table class="table" th:if="${#lists.size(listPegawai) > 0}">
-                    <thead>
+                    <thead style="background-color: #3F4188; color: white">
                     <tr>
                         <th>Nama</th>
                         <th>Role</th>
@@ -22,8 +22,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="pegawai, iterationStatus : ${listPegawai}"
-                        th:style="${iterationStatus.even} ? 'font-weight:bold;'">
+                    <tr th:each="pegawai, iterationStatus : ${listPegawai}">
                         <td th:text="${pegawai.nama}"></td>
                         <td th:if="${pegawai.role.role} == STAFF_GUDANG">Staff Gudang</td>
                         <td th:if="${pegawai.role.role} == STAFF_KURIR">Staff Kurir</td>

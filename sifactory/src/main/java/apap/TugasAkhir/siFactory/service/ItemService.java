@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface ItemService {
 
-    void addItem(ItemModel item);
+    Boolean addItem(String nama, int harga, int stok, int kategori, PegawaiModel pegawai);
 
     List<ItemModel> getListKategori();
 
