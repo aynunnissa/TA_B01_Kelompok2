@@ -33,9 +33,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/swagger-ui/**").permitAll()
                 .antMatchers("/pegawai/add").hasAuthority("ADMIN")
                 .antMatchers("/delivery/viewAll").hasAnyAuthority("STAFF_KURIR", "STAFF_OPERASIONAL")
+                .antMatchers("/delivery/send/**").hasAuthority("STAFF_KURIR")
                 .antMatchers("/item/update-stok/**").hasAuthority("STAFF_GUDANG")
                 .antMatchers("/item/update-stok/rui/**").hasAuthority("STAFF_GUDANG")
-                .antMatchers("/item/request-update-item").hasAnyAuthority("STAFF_GUDANG",  "STAFF_OPERASIONAL")
+                .antMatchers("/item/request-update-item").hasAnyAuthority("STAFF_GUDANG", "STAFF_OPERASIONAL")
                 .antMatchers("/item//request-update-item/assign-kurir/**").hasAuthority("STAFF_OPERASIONAL")
                 .antMatchers("/pegawai/view-all").hasAnyAuthority("ADMIN", "FACTORY_MANAGER")
                 .anyRequest().authenticated()
@@ -54,28 +55,27 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring().antMatchers("/api-docs");
     }
 
-     @Bean
-     public BCryptPasswordEncoder encoder(){
-     return new BCryptPasswordEncoder();
-     }
+    @Bean
+    public BCryptPasswordEncoder encoder() {
+        return new BCryptPasswordEncoder();
+    }
 
-     @Autowired
-     public void configureGlobal(AuthenticationManagerBuilder auth) throws
-     Exception {
-     BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-     auth.inMemoryAuthentication()
-     .passwordEncoder(encoder)
-     .withUser("useradmin").password(encoder.encode("Admin123"))
-     .roles("ADMIN");
-     }
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        auth.inMemoryAuthentication()
+                .passwordEncoder(encoder)
+                .withUser("useradmin").password(encoder.encode("Admin123"))
+                .roles("ADMIN");
+    }
 
-//     @Autowired
-//     public void configureGlobal(AuthenticationManagerBuilder auth) throws
-//     Exception{
-//     auth.inMemoryAuthentication()
-//     .passwordEncoder(encoder())
-//     .withUser("useradmin").password(encoder().encode("Admin!123")).roles("Admin");
-//     }
+    // @Autowired
+    // public void configureGlobal(AuthenticationManagerBuilder auth) throws
+    // Exception{
+    // auth.inMemoryAuthentication()
+    // .passwordEncoder(encoder())
+    // .withUser("useradmin").password(encoder().encode("Admin!123")).roles("Admin");
+    // }
 
     @Autowired
     private UserDetailsService userDetailsService;

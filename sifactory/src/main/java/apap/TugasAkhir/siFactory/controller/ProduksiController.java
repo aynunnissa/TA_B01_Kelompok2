@@ -20,7 +20,7 @@ public class ProduksiController {
     @Autowired
     private ProduksiService produksiService;
 
-    @GetMapping("produksi/viewAll")
+    @GetMapping("/produksi/viewAll")
     public String viewAllProduksi(Model model) {
         List<ProduksiModel> listProduksi = produksiService.getListProduksi();
 

@@ -13,15 +13,15 @@
     <div class="col-12 col-md-5 offset-md-1 p-0">
         <h2 style="color: #3F4188">Selamat datang di SI-FACTORY!</h2>
         <h4 th:text="'Hello '+${#httpServletRequest.remoteUser}+'!'"></h4>
-        <div class="d-flex justify-content-start">
-            <a th:if="${role == '[ADMIN]'}" th:href="@{/pegawai/add}" class="mr-2 btn btn-outline-primary">Tambah Pegawai</a>
-            <a th:if="${role == '[ADMIN]'}" th:href="@{/pegawai/view-all}" class="mr-2 btn btn-outline-primary">Lihat Daftar Pegawai</a>
-            <a th:if="${role == '[FACTORY_MANAGER]'}" th:href="@{/pegawai/view-all}" class="mr-2 btn btn-outline-primary">Lihat Daftar Pegawai</a>
-            <a th:if="${role == '[FACTORY_MANAGER]'}" th:href="@{/item/add}" class="mr-2 btn btn-outline-primary">Ajukan Item Baru</a>
-            <a th:if="${role == '[STAFF_OPERASIONAL]' or role == '[STAFF_GUDANG]'}" th:href="@{/item/request-update-item}" class="mr-2 btn btn-outline-primary">Lihat Daftar Request Update Item</a>
-            <a th:href="@{/item/item-detail}" class="mr-2 btn btn-outline-primary">Lihat Daftar Item</a>
-            <a th:href="@{/produksi/viewAll}" class="mr-2 btn btn-outline-primary">Lihat Daftar Produksi</a>
-            <a th:if="${role == '[STAFF_OPERASIONAL]' or role == '[STAFF_KURIR]'}" th:href="@{/delivery/viewAll}" class="mr-2 btn btn-outline-primary">Lihat Daftar Delivery</a>
+        <div class="d-flex justify-content-start flex-wrap mt-3">
+            <div><a th:if="${role == '[ADMIN]'}" th:href="@{/pegawai/add}" class="mr-2 mb-2 btn btn-outline-primary">Tambah Pegawai</a></div>
+            <div><a th:if="${role == '[ADMIN]'}" th:href="@{/pegawai/view-all}" class="mr-2 mb-2 btn btn-outline-primary">Lihat Daftar Pegawai</a></div>
+            <div><a th:if="${role == '[FACTORY_MANAGER]'}" th:href="@{/pegawai/view-all}" class="mr-2 mb-2 btn btn-outline-primary">Lihat Daftar Pegawai</a></div>
+            <div><a th:if="${role == '[FACTORY_MANAGER]'}" th:href="@{/item/add}" class="mr-2 mb-2 btn btn-outline-primary">Ajukan Item Baru</a></div>
+            <div><a th:if="${role == '[STAFF_OPERASIONAL]' or role == '[STAFF_GUDANG]'}" th:href="@{/item/request-update-item}" class="mr-2 mb-2 btn btn-outline-primary">Lihat Daftar Request Update Item</a></div>
+            <div><a th:href="@{/item/item-detail}" class="mr-2 mb-2 btn btn-outline-primary">Lihat Daftar Item</a></div>
+            <div><a th:href="@{/produksi/viewAll}" class="mr-2 mb-2 btn btn-outline-primary">Lihat Daftar Produksi</a></div>
+            <div><a th:if="${role == '[STAFF_OPERASIONAL]' or role == '[STAFF_KURIR]'}" th:href="@{/delivery/viewAll}" class="mr-2 mb-2 btn btn-outline-primary">Lihat Daftar Delivery</a></div>
         </div>
     </div>
     <div class="col-12 col-md-5 p-0">
