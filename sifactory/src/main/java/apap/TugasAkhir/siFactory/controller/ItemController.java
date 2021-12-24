@@ -30,6 +30,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
+import javax.transaction.Transactional;
 import javax.validation.constraints.NotNull;
 
 @Controller
@@ -211,7 +212,7 @@ public class ItemController {
     // Fitur 12
     @GetMapping("/request-update-item/assign-kurir/{ruiId}")
     public String assignKurirFormPage (
-            @PathVariable Long ruiId,
+            @PathVariable long ruiId,
             Integer counterPegawaiKurir,
             Model model) {
         DeliveryModel delivery = new DeliveryModel();
@@ -235,7 +236,7 @@ public class ItemController {
     // Fitur 12
     @PostMapping("/request-update-item/assign-kurir/{ruiId}")
     public String assignKurirSubmitPage(
-            @PathVariable Long ruiId,
+            @PathVariable long ruiId,
             Integer counterPegawaiKurir,
             String userNamePegawai,
             DeliveryModel delivery,
