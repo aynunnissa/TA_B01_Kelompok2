@@ -9,13 +9,13 @@
     <object th:include="fragments/fragment :: js" th:remove="tag"></object>
 </head>
 <body>
-<nav th:replace="fragments/fragment :: navbar('Home')"></nav>
+<nav th:replace="fragments/fragment :: navbar('Item')"></nav>
 
 <div class="container">
     <div class="card m-4 p-4">
         <div class="card-body">
             <div class="justify-content-center">
-                <h2>Tambah Item Baru</h2>
+                <h2>Buat Item Baru</h2>
                 <br>
                 <form th:action="@{/item/add}" th:object="${item}" method="POST">
                     Nama Item : <br>
@@ -30,7 +30,7 @@
                     <input class="form-control" type="text" name="stokItem"/>
                     <br><br>
 
-<!--                    Untuk Kategori Item-->
+<!--                Untuk Kategori Item-->
 
                     Kategori Item : <br>
                     <select name="kategoriItem">
@@ -50,23 +50,28 @@
                         <option value="14">WEDDING</option>
                     </select>
                     <br><br>
+
+                    <!--Untuk Kategori Item (retrieve from db)-->
+
 <!--                    <table class="table">-->
 <!--                        <thead>-->
-<!--                        <th>Kategori Item</th>-->
+<!--                            <th>Kategori Item :</th>-->
 <!--                        </thead>-->
 <!--                        <tbody>-->
-<!--                        <tr th:each="destinasi, iterationStatus : *{listDestinasi}">-->
+<!--                        <tr th:each="item, iterationStatus : *{listKategori}">-->
 <!--                            <td>-->
-<!--                                <select name="noDestinasi" th:field="*{listDestinasi[__${iterationStatus.index}__].noDestinasi}"-->
+<!--                                <select name="kategori" th:field="*{listKategori[__${iterationStatus.index}__].kategori}"-->
 <!--                                        class="form-control">-->
-<!--                                    <div th:each="destinasiEx, iterationStatus2 : ${listDestinasiExisting}">-->
-<!--                                        <option th:value="${destinasiEx.noDestinasi}" th:text="${destinasiEx.negaraDestinasi}"></option>-->
-<!--                                    </div>-->
-<!--                                </select>-->
+<!--                                <div th:each="itemEx, iterationStatus2 : *{listKategori}">-->
+<!--                                    <option th:value="${itemEx.kategori}" th:text="${itemEx.kategori}"></option>-->
+<!--                                </div>-->
+
 <!--                            </td>-->
 <!--                        </tr>-->
 <!--                        </tbody>-->
 <!--                    </table>-->
+
+
                     <button class="btn btn-primary" type="submit">Submit</button>
                     <a href="/"
                     ><svg

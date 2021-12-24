@@ -44,6 +44,13 @@ public class ItemServiceImpl implements ItemService{
     }
 
     @Override
+    public void addItem(ItemModel item) { itemDb.save(item); }
+
+    @Override
+    public List<ItemModel> getListKategori() { return itemDb.findAll(); }
+
+
+    @Override
     public String getKategoryItem (String uuid){
         Mono<ItemDetail> result = this.webClient.get().uri("/api/item/" + uuid).retrieve().bodyToMono(ItemDetail.class);
         String kategori = result.block().getResult().getKategori();
