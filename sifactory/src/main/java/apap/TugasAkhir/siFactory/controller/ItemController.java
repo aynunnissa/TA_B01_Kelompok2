@@ -202,8 +202,8 @@ public class ItemController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) auth.getPrincipal();
         String username = user.getUsername();
-//        String role = pegawaiService.getPegawaiByUsername(username).getRole().getRole();
-//        model.addAttribute("role", role);
+        String role = pegawaiService.getPegawaiByUsername(username).getRole().getRole();
+        model.addAttribute("role", role);
         model.addAttribute("listRUI", listRUI);
         return "viewall-request-update-item";
     }
