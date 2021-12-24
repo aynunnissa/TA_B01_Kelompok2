@@ -4,30 +4,24 @@ package apap.TugasAkhir.siFactory.controller;
 import apap.TugasAkhir.siFactory.model.*;
 import apap.TugasAkhir.siFactory.rest.BaseResponse;
 import apap.TugasAkhir.siFactory.service.*;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.Authentication;
 import apap.TugasAkhir.siFactory.model.PegawaiModel;
-import apap.TugasAkhir.siFactory.rest.ItemDetail;
 import apap.TugasAkhir.siFactory.service.ItemService;
 import apap.TugasAkhir.siFactory.service.PegawaiService;
 
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.reactive.function.client.WebClientException;
-import reactor.core.publisher.Mono;
 
 import java.util.*;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.validation.constraints.NotNull;
 
 @Controller
 @RequestMapping("/item")
@@ -50,7 +44,11 @@ public class ItemController {
 
     @Autowired
     RoleService roleService;
-    
+
+    @Autowired
+    DeliveryService deliveryService;
+
+
     // Fitur 4
     @GetMapping("/item/add")
     public String addItemFormPage(Model model) {
@@ -195,6 +193,7 @@ public class ItemController {
     @GetMapping("/request-update-item/assign-kurir/{ruiId}")
     public String assignKurirFormPage (
             @PathVariable Long ruiId,
+            Integer counterPegawaiKurir,
             Model model) {
         List<PegawaiModel> listPegawai = pegawaiService.getListPegawai();
         List<PegawaiModel> listPegawaiKurir = new ArrayList<PegawaiModel>();
@@ -206,6 +205,7 @@ public class ItemController {
         }
 //        System.out.println(listPegawaiKurir);
         model.addAttribute("listPegawaiKurir", listPegawaiKurir);
+        model.addAttribute("ruiId", ruiId);
         return "form-assign-kurir";
     }
 
@@ -213,10 +213,18 @@ public class ItemController {
     @PostMapping("/request-update-item/assign-kurir/{ruiId}")
     public String assignKurirSubmitPage(
             @PathVariable Long ruiId,
-//            String userNamePegawai,
-//            Integer jumlahStok,
-//            long idMesin,
+            Integer counterPegawaiKurir,
             Model model) {
+        RequestUpdateItemModel rui = itemService.getRequestUpdateItem(ruiId);
+        DeliveryModel ruiAssignedKurir = deliveryService.getDeliveryByIdDelivery(rui.getDeliveryModel().getIdDelivery());
+        ruiAssignedKurir.setSent(true);
+        deliveryService.updateDelivery(ruiAssignedKurir);
+
+        counterPegawaiKurir = rui.getDeliveryModel().getPegawai().getCounter() + 1;
+        PegawaiModel pegawaiKurir = rui.getDeliveryModel().getPegawai();
+        pegawaiKurir.setCounter(counterPegawaiKurir);
+
+//        System.out.println(pegawaiKurir.getCounter());
 
         return "assign-kurir-berhasil";
 
