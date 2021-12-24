@@ -27,6 +27,11 @@ public class DeliveryServiceImpl implements DeliveryService {
     private PegawaiService pegawaiService;
 
     @Override
+    public DeliveryModel addDelivery(DeliveryModel delivery) {
+        return deliveryDb.save(delivery);
+    }
+
+    @Override
     public List<DeliveryModel> getListDelivery() {
         return deliveryDb.findAllByOrderByIdDeliveryAsc();
     }
