@@ -1,9 +1,9 @@
 package apap.TugasAkhir.siFactory.controller;
 
 
-import apap.TugasAkhir.siFactory.model.ItemModel;
-import apap.TugasAkhir.siFactory.model.PegawaiModel;
+import apap.TugasAkhir.siFactory.model.*;
 import apap.TugasAkhir.siFactory.rest.BaseResponse;
+import apap.TugasAkhir.siFactory.service.*;
 import apap.TugasAkhir.siFactory.rest.ProposeItem;
 import apap.TugasAkhir.siFactory.service.ItemRestService;
 import apap.TugasAkhir.siFactory.service.ItemService;
@@ -12,29 +12,25 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.Authentication;
-import apap.TugasAkhir.siFactory.model.MesinModel;
 import apap.TugasAkhir.siFactory.model.PegawaiModel;
-import apap.TugasAkhir.siFactory.model.ProduksiModel;
-import apap.TugasAkhir.siFactory.model.RequestUpdateItemModel;
-import apap.TugasAkhir.siFactory.rest.ItemDetail;
 import apap.TugasAkhir.siFactory.service.ItemService;
-import apap.TugasAkhir.siFactory.service.MesinService;
 import apap.TugasAkhir.siFactory.service.PegawaiService;
-import apap.TugasAkhir.siFactory.service.ProduksiService;
 
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.reactive.function.client.WebClientException;
-import reactor.core.publisher.Mono;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.*;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+
+import javax.validation.constraints.NotNull;
 
 @Controller
 @RequestMapping("/item")
@@ -54,7 +50,14 @@ public class ItemController {
 
     @Autowired
     ItemRestService itemRestService;
-    
+
+    @Autowired
+    RoleService roleService;
+
+    @Autowired
+    DeliveryService deliveryService;
+
+
     // Fitur 4
     @GetMapping("/add")
     public String addItemFormPage(Model model) {
@@ -203,5 +206,62 @@ public class ItemController {
         model.addAttribute("role", role);
         model.addAttribute("listRUI", listRUI);
         return "viewall-request-update-item";
+    }
+
+    // Fitur 12
+    @GetMapping("/request-update-item/assign-kurir/{ruiId}")
+    public String assignKurirFormPage (
+            @PathVariable Long ruiId,
+            Integer counterPegawaiKurir,
+            Model model) {
+        DeliveryModel delivery = new DeliveryModel();
+
+
+        List<PegawaiModel> listPegawai = pegawaiService.getListPegawai();
+        List<PegawaiModel> listPegawaiKurir = new ArrayList<PegawaiModel>();
+        for (PegawaiModel kurir : listPegawai) {
+            String role = kurir.getRole().getRole();
+            if (role.equals("STAFF_KURIR")) {
+                listPegawaiKurir.add(kurir);
+            }
+        }
+
+        model.addAttribute("listPegawaiKurir", listPegawaiKurir);
+        model.addAttribute("ruiId", ruiId);
+        model.addAttribute("delivery", delivery);
+        return "form-assign-kurir";
+    }
+
+    // Fitur 12
+    @PostMapping("/request-update-item/assign-kurir/{ruiId}")
+    public String assignKurirSubmitPage(
+            @PathVariable Long ruiId,
+            Integer counterPegawaiKurir,
+            String userNamePegawai,
+            DeliveryModel delivery,
+            Long idKurir,
+            Model model) {
+        Date currentDate = new Date();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        LocalDate localDate = currentDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+        PegawaiModel pegawaiKurirBaru = pegawaiService.getPegawaiByIdPegawai(idKurir);
+
+        RequestUpdateItemModel rui = itemService.getRequestUpdateItem(ruiId);
+        int idCabangRui = rui.getIdCabang();
+        delivery.setRequestUpdateItem(rui);
+        delivery.setIdCabang(idCabangRui);
+        delivery.setTanggalDibuat(localDate);
+        delivery.setPegawai(pegawaiKurirBaru);
+        delivery.setSent(false);
+        deliveryService.addDelivery(delivery);
+        System.out.println(deliveryService.getListDelivery());
+
+        PegawaiModel pegawaiOperasional = pegawaiService.getPegawaiByUsername(userNamePegawai);
+        pegawaiOperasional.setCounter(pegawaiOperasional.getCounter() + 1);
+        System.out.println(pegawaiOperasional.getCounter());
+
+        return "assign-kurir-berhasil";
+
     }
 }

@@ -5,9 +5,12 @@ import apap.TugasAkhir.siFactory.model.DeliveryModel;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface DeliveryService {
+    DeliveryModel addDelivery (DeliveryModel delivery);
+
     List<DeliveryModel> getListDelivery();
 
     DeliveryModel getDeliveryByIdDelivery(int idDelivery);

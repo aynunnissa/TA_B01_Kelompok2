@@ -80,7 +80,7 @@
                                 </span>
                                 <span th:case="STAFF_OPERASIONAL">
                                     <span th:if="${rui.executed == true and rui.deliveryModel == null}">
-                                        <a class="btn btn-primary" >Delivery</a>
+                                        <a class="btn btn-primary" th:href="@{/item/request-update-item/assign-kurir/} + ${rui.idRequestUpdateItem}">Delivery</a>
                                     </span>
                                     <span th:unless="${rui.executed == true and rui.deliveryModel == null}">
                                         -
