@@ -36,7 +36,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/item/update-stok/**").hasAuthority("STAFF_GUDANG")
                 .antMatchers("/item/update-stok/rui/**").hasAuthority("STAFF_GUDANG")
                 .antMatchers("item/request-update-item").hasAnyAuthority("STAFF_GUDANG", "STAFF_OPERASIONAL")
-                .antMatchers("/pegawai/view-all").hasAnyAuthority("ADMIN", "FACTORY_MANAGER")
+               // .antMatchers("/pegawai/view-all").hasAnyAuthority("ADMIN", "FACTORY_MANAGER")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -79,11 +79,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserDetailsService userDetailsService;
 
-    @Autowired
-    public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        auth.userDetailsService(userDetailsService).passwordEncoder(encoder);
-    }
+//    @Autowired
+//    public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
+//        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+//        auth.userDetailsService(userDetailsService).passwordEncoder(encoder);
+//    }
 
     // @Autowired
     // private UserDetailsService userDetailsService;

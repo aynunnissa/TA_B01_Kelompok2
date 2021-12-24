@@ -58,26 +58,24 @@ public class ItemController {
     // Fitur 4
     @GetMapping("/add")
     public String addItemFormPage(Model model) {
-        //HashMap<Integer, Kategori> listKategori = mesinService.getListKategoriMesin();
-        //List<ItemModel> listKategori = itemService.getKategoryItem();
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String role = authentication.getAuthorities().toString();
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        String role = authentication.getAuthorities().toString();
+        ItemModel newItem = new ItemModel();
+        List<ItemModel> listKategori = itemService.getListKategori();
 
-        model.addAttribute("role", role);
-       // model.addAttribute("listKategori", new listKategori);
-        model.addAttribute("proposeItem", new ProposeItem());
+        model.addAttribute("newItem", newItem);
+        model.addAttribute("listKategoriExisting", listKategori);
 
         return "form-add-item";
     }
 
     @PostMapping("/add")
     public String addItemSubmitPage(
-            @ModelAttribute ProposeItem proposeItem,
+            @ModelAttribute ItemModel item,
             Model model
     ){
-//        ProposeItem proposedItem = ItemRestService.addProposeItem(proposeItem);
-//        //pegawaiService.setCounterPegawai();
-//        model.addAttribute("proposedItem", proposedItem);
+        itemService.addItem(item);
+
         return "request-add-item-berhasil";
     }
   
