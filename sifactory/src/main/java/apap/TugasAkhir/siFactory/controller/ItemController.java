@@ -55,6 +55,7 @@ public class ItemController {
     @Autowired
     RoleService roleService;
 
+    @Qualifier("deliveryServiceImpl")
     @Autowired
     DeliveryService deliveryService;
 
@@ -215,9 +216,6 @@ public class ItemController {
             @PathVariable long ruiId,
             Integer counterPegawaiKurir,
             Model model) {
-        DeliveryModel delivery = new DeliveryModel();
-
-
         List<PegawaiModel> listPegawai = pegawaiService.getListPegawai();
         List<PegawaiModel> listPegawaiKurir = new ArrayList<PegawaiModel>();
         for (PegawaiModel kurir : listPegawai) {
@@ -229,7 +227,6 @@ public class ItemController {
 
         model.addAttribute("listPegawaiKurir", listPegawaiKurir);
         model.addAttribute("ruiId", ruiId);
-        model.addAttribute("delivery", delivery);
         return "form-assign-kurir";
     }
 
@@ -239,30 +236,16 @@ public class ItemController {
             @PathVariable long ruiId,
             Integer counterPegawaiKurir,
             String userNamePegawai,
-            DeliveryModel delivery,
             Long idKurir,
             Model model) {
-        Date currentDate = new Date();
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        LocalDate localDate = currentDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-
-        PegawaiModel pegawaiKurirBaru = pegawaiService.getPegawaiByIdPegawai(idKurir);
-
-        RequestUpdateItemModel rui = itemService.getRequestUpdateItem(ruiId);
-        int idCabangRui = rui.getIdCabang();
-        delivery.setRequestUpdateItem(rui);
-        delivery.setIdCabang(idCabangRui);
-        delivery.setTanggalDibuat(localDate);
-        delivery.setPegawai(pegawaiKurirBaru);
-        delivery.setSent(false);
-        deliveryService.addDelivery(delivery);
-        System.out.println(deliveryService.getListDelivery());
-
-        PegawaiModel pegawaiOperasional = pegawaiService.getPegawaiByUsername(userNamePegawai);
-        pegawaiOperasional.setCounter(pegawaiOperasional.getCounter() + 1);
-        System.out.println(pegawaiOperasional.getCounter());
-
-        return "assign-kurir-berhasil";
-
+            try{
+                RequestUpdateItemModel rui = itemService.getRequestUpdateItem(ruiId);
+                PegawaiModel pegawai = pegawaiService.getPegawaiByUsername(userNamePegawai);
+                PegawaiModel kurir = pegawaiService.getPegawaiByIdPegawai(idKurir);
+                DeliveryModel delivery = deliveryService.createDelivery(pegawai, rui,kurir);
+                return "assign-kurir-berhasil";
+            }catch(Exception e){
+                return "assign-kurir-gagal";
+            }
     }
 }
