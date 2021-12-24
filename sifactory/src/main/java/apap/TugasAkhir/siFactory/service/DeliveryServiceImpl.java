@@ -1,6 +1,8 @@
 package apap.TugasAkhir.siFactory.service;
 
 import apap.TugasAkhir.siFactory.model.DeliveryModel;
+import apap.TugasAkhir.siFactory.model.PegawaiModel;
+import apap.TugasAkhir.siFactory.model.RequestUpdateItemModel;
 import apap.TugasAkhir.siFactory.repository.DeliveryDb;
 
 import org.json.JSONArray;
@@ -25,6 +27,11 @@ public class DeliveryServiceImpl implements DeliveryService {
     @Qualifier("pegawaiServiceImpl")
     @Autowired
     private PegawaiService pegawaiService;
+
+    @Override
+    public DeliveryModel addDelivery(DeliveryModel delivery) {
+        return deliveryDb.save(delivery);
+    }
 
     @Override
     public List<DeliveryModel> getListDelivery() {
@@ -75,5 +82,20 @@ public class DeliveryServiceImpl implements DeliveryService {
     public DeliveryModel updateDelivery(DeliveryModel delivery) {
         deliveryDb.save(delivery);
         return delivery;
+    }
+
+    @Override
+    public DeliveryModel createDelivery(PegawaiModel pegawai, RequestUpdateItemModel rui, PegawaiModel kurir){
+        DeliveryModel delivery = new DeliveryModel();
+        delivery.setIdCabang(rui.getIdCabang());
+        delivery.setTanggalDibuat(LocalDate.now());
+        delivery.setTanggalDikirim(null);
+        delivery.setSent(false);
+        delivery.setPegawai(kurir);
+        delivery.setRequestUpdateItem(rui);
+        deliveryDb.save(delivery);
+        int counterPegawaiAkhir = pegawai.getCounter() + 1;
+        pegawai.setCounter(counterPegawaiAkhir);
+        return  delivery;
     }
 }

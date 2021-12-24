@@ -35,8 +35,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/delivery/viewAll").hasAnyAuthority("STAFF_KURIR", "STAFF_OPERASIONAL")
                 .antMatchers("/item/update-stok/**").hasAuthority("STAFF_GUDANG")
                 .antMatchers("/item/update-stok/rui/**").hasAuthority("STAFF_GUDANG")
-                .antMatchers("item/request-update-item").hasAnyAuthority("STAFF_GUDANG", "STAFF_OPERASIONAL")
-               // .antMatchers("/pegawai/view-all").hasAnyAuthority("ADMIN", "FACTORY_MANAGER")
+                .antMatchers("/item/request-update-item").hasAnyAuthority("STAFF_GUDANG",  "STAFF_OPERASIONAL")
+                .antMatchers("/pegawai/view-all").hasAnyAuthority("ADMIN", "FACTORY_MANAGER")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -68,13 +68,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      .roles("ADMIN");
      }
 
-    // @Autowired
-    // public void configureGlobal(AuthenticationManagerBuilder auth) throws
-    // Exception{
-    // auth.inMemoryAuthentication()
-    // .passwordEncoder(encoder())
-    // .withUser("useradmin").password(encoder().encode("Admin!123")).roles("Admin");
-    // }
+//     @Autowired
+//     public void configureGlobal(AuthenticationManagerBuilder auth) throws
+//     Exception{
+//     auth.inMemoryAuthentication()
+//     .passwordEncoder(encoder())
+//     .withUser("useradmin").password(encoder().encode("Admin!123")).roles("Admin");
+//     }
 
     @Autowired
     private UserDetailsService userDetailsService;
