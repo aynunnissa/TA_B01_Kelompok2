@@ -16,8 +16,8 @@
                 <!-- <h1 th:text="{$coba}"></h1> -->
                 <h2 style="text-align: center;">Assign Kurir</h2>
                 <br>
-                <form th:action="@{/item/request-update-item/assign-kurir/} + ${ruiId}"  method="POST" onsubmit="return confirm('Apakah anda yakin untuk assign kurir?');">
-<!--                    <input type="hidden" name="userNamePegawai" th:value="${#httpServletRequest.userPrincipal.name}">-->
+                <form th:action="@{/item/request-update-item/assign-kurir/} + ${ruiId}" th:object="${delivery}" method="POST" onsubmit="return confirm('Apakah anda yakin untuk assign kurir?');">
+                    <input type="hidden" name="userNamePegawai" th:value="${#httpServletRequest.userPrincipal.name}">
 <!--                    Jumlah Stok : <br>-->
 <!--                    <input class="form-control" type="number" name="jumlahStok" required/>-->
 <!--                    <br><br>-->

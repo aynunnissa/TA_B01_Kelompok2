@@ -14,6 +14,10 @@ import apap.TugasAkhir.siFactory.service.PegawaiService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.reactive.function.client.WebClientException;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.*;
 
 import org.springframework.security.core.userdetails.User;
@@ -195,6 +199,9 @@ public class ItemController {
             @PathVariable Long ruiId,
             Integer counterPegawaiKurir,
             Model model) {
+        DeliveryModel delivery = new DeliveryModel();
+
+
         List<PegawaiModel> listPegawai = pegawaiService.getListPegawai();
         List<PegawaiModel> listPegawaiKurir = new ArrayList<PegawaiModel>();
         for (PegawaiModel kurir : listPegawai) {
@@ -203,9 +210,10 @@ public class ItemController {
                 listPegawaiKurir.add(kurir);
             }
         }
-//        System.out.println(listPegawaiKurir);
+
         model.addAttribute("listPegawaiKurir", listPegawaiKurir);
         model.addAttribute("ruiId", ruiId);
+        model.addAttribute("delivery", delivery);
         return "form-assign-kurir";
     }
 
@@ -214,17 +222,29 @@ public class ItemController {
     public String assignKurirSubmitPage(
             @PathVariable Long ruiId,
             Integer counterPegawaiKurir,
+            String userNamePegawai,
+            DeliveryModel delivery,
+            Long idKurir,
             Model model) {
+        Date currentDate = new Date();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        LocalDate localDate = currentDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+        PegawaiModel pegawaiKurirBaru = pegawaiService.getPegawaiByIdPegawai(idKurir);
+
         RequestUpdateItemModel rui = itemService.getRequestUpdateItem(ruiId);
-        DeliveryModel ruiAssignedKurir = deliveryService.getDeliveryByIdDelivery(rui.getDeliveryModel().getIdDelivery());
-        ruiAssignedKurir.setSent(true);
-        deliveryService.updateDelivery(ruiAssignedKurir);
+        int idCabangRui = rui.getIdCabang();
+        delivery.setRequestUpdateItem(rui);
+        delivery.setIdCabang(idCabangRui);
+        delivery.setTanggalDibuat(localDate);
+        delivery.setPegawai(pegawaiKurirBaru);
+        delivery.setSent(false);
+        deliveryService.addDelivery(delivery);
+        System.out.println(deliveryService.getListDelivery());
 
-        counterPegawaiKurir = rui.getDeliveryModel().getPegawai().getCounter() + 1;
-        PegawaiModel pegawaiKurir = rui.getDeliveryModel().getPegawai();
-        pegawaiKurir.setCounter(counterPegawaiKurir);
-
-//        System.out.println(pegawaiKurir.getCounter());
+        PegawaiModel pegawaiOperasional = pegawaiService.getPegawaiByUsername(userNamePegawai);
+        pegawaiOperasional.setCounter(pegawaiOperasional.getCounter() + 1);
+        System.out.println(pegawaiOperasional.getCounter());
 
         return "assign-kurir-berhasil";
 
