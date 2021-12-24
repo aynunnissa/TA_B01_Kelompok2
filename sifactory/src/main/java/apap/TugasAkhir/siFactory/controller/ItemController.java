@@ -65,10 +65,7 @@ public class ItemController {
     public String addItemFormPage(Model model) {
 //        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 //        String role = authentication.getAuthorities().toString();
-        ItemModel newItem = new ItemModel();
         List<ItemModel> listKategori = itemService.getListKategori();
-
-        model.addAttribute("newItem", newItem);
         model.addAttribute("listKategoriExisting", listKategori);
 
         return "form-add-item";
@@ -76,22 +73,32 @@ public class ItemController {
 
     @PostMapping("/add")
     public String addItemSubmitPage(
-            @ModelAttribute ItemModel item,
+            String nama,
+            int harga,
+            int stok,
+            int kategori,
+            String userNamePegawai,
             Model model
     ){
-        itemService.addItem(item);
+        PegawaiModel pegawai = pegawaiService.getPegawaiByUsername(userNamePegawai);
+        boolean statusPost = itemService.addItem(nama, harga, stok, kategori, pegawai);
+        if(statusPost == true){
+            return "request-add-item-berhasil";  
+        }
 
-        return "request-add-item-berhasil";
+        return "request-add-item-gagal";
     }
   
     // Fitur 5
     @RequestMapping(value = "/item-detail", method = RequestMethod.GET)
-    private String getItemDetail(Authentication auth, Model model) throws WebClientException {
-        // PegawaiModel pegawai = pegawaiService.getPegawaiByUsername(auth.getName());
-        // Long role = pegawai.getRole().getIdRole();
-
+    private String getItemDetail(Model model) throws WebClientException {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) auth.getPrincipal();
+        String username = user.getUsername();
+        String role = pegawaiService.getPegawaiByUsername(username).getRole().getRole();
         BaseResponse baseResponse = itemRestService.getItemStatus(auth.getName());
         Object itemDetail = baseResponse.getResult();
+        model.addAttribute("role", role);
         model.addAttribute("itemDetail", itemDetail);
 
         return "viewall-item";

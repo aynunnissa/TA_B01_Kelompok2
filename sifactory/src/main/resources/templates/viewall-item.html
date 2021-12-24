@@ -22,8 +22,8 @@
           <p class="text-center mt-3">Belum ada item tersedia</p>
         </div>
         <table class="table table-striped th:if="${#lists.size(itemDetail) >
-          <thead>
-          <tr class="bg-warning">
+          <thead style="background-color: #3F4188; color: white">
+          <tr>
             <th>No</th>
             <th>UUID</th>
             <th>Nama</th>
@@ -43,10 +43,12 @@
             <td th:text="${item.harga}"></td>
             <td th:text="${item.stok}"></td>
             <td th:text="${item.kategori}"></td>
-            <td>
+            <td th:switch="${role}">
               <a class="btn btn-primary btn-sm" th:href="@{/item/item-detail/} + ${item.uuid}">Detail</a>
-              <a class="btn btn-primary btn-info" th:href="@{/item/update-stok/} + ${item.uuid}">Ubah</a>
-            </td>
+              <span th:case="STAFF_GUDANG">
+                <a class="btn btn-primary btn-info" th:href="@{/item/update-stok/} + ${item.uuid}">Ubah</a>
+              </span>
+          </td>
           </tr>
           </tbody>
         </table>
