@@ -17,7 +17,7 @@
             <a th:if="${role == '[ADMIN]'}" th:href="@{/pegawai/add}" class="mr-2 btn btn-outline-primary">Tambah Pegawai</a>
             <a th:if="${role == '[ADMIN]'}" th:href="@{/pegawai/view-all}" class="mr-2 btn btn-outline-primary">Lihat Daftar Pegawai</a>
             <a th:if="${role == '[FACTORY_MANAGER]'}" th:href="@{/pegawai/view-all}" class="mr-2 btn btn-outline-primary">Lihat Daftar Pegawai</a>
-            <a th:if="${role == '[FACTORY_MANAGER]'}" th:href="@{/item/add}" class="mr-2 btn btn-outline-primary">Tambah Item</a>
+            <a th:if="${role == '[FACTORY_MANAGER]'}" th:href="@{/item/add}" class="mr-2 btn btn-outline-primary">Ajukan Item Baru</a>
             <a th:if="${role == '[STAFF_OPERASIONAL]' or role == '[STAFF_GUDANG]'}" th:href="@{/item/request-update-item}" class="mr-2 btn btn-outline-primary">Lihat Daftar Request Update Item</a>
             <a th:href="@{/item/item-detail}" class="mr-2 btn btn-outline-primary">Lihat Daftar Item</a>
             <a th:href="@{/produksi/viewAll}" class="mr-2 btn btn-outline-primary">Lihat Daftar Produksi</a>
